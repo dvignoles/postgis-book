@@ -1,3 +1,6 @@
+publish:
+	ghp-import -n -p -f postgis/_build/html
+
 setup: requirements.txt
 	pip install -r requirements.txt
 

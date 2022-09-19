@@ -1,0 +1,23 @@
+# https://github.com/kartoza/docker-postgis/blob/develop/docker-compose.yml
+version: '3.9'
+volumes:
+  postgis-data:
+
+services:
+  db:
+    image: kartoza/postgis:14-3.2
+    volumes:
+      - postgis-data:/var/lib/postgresql
+      - ./data:/opt/data
+      - ./.pgpass:/root/.pgpass
+    environment:
+      - POSTGRES_DB=gis
+      - POSTGRES_USER=docker
+      - POSTGRES_PASS=docker
+      - ALLOW_IP_RANGE=0.0.0.0/0
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,postgis_raster
+    ports:
+      - "25432:5432"
+    restart: on-failure
+    healthcheck:
+      test: "exit 0"

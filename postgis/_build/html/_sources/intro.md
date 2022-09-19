@@ -1,16 +1,18 @@
-# Welcome to your Jupyter Book
+# Welcome
 
-This is a small sample book to give you a feel for how book content is
-structured.
+A collection of postGIS snippets and class asignments for the [Hunter Geoinformatics M.S. Program](https://www.hunter.cuny.edu/graduate-programs/geoinformatics/index.html).
 
-:::{note}
-Here is a note!
-:::
+## Database setup
 
-And here is a code block:
+See [repository](https://github.com/dvignoles/postgis-book) for `docker-compose.yaml` and `Makefile`.
 
-```
-e = mc^2
+```sh
+docker-compose up -d
+make load-data
 ```
 
-Check out the content pages bundled with this sample book to see more.
+## Contact
+
+Daniel Vignoles
+
+dvignoles@gmail.com

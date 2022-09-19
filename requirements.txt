@@ -1,4 +1,8 @@
 jupyter-book
+ipykernel
 matplotlib
+psycopg2
+pandas
+geopandas
 numpy
 ghp-import

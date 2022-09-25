@@ -5,3 +5,4 @@ format: jb-book
 root: intro
 chapters:
 - file: dv-lab-01
+- file: dv-lab-02

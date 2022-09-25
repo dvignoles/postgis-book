@@ -1,5 +1,6 @@
 jupyter-book
 ipykernel
+ipython-sql
 matplotlib
 psycopg2
 pandas

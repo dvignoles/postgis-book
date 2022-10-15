@@ -1,0 +1,1238 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Basic Spatial Data Manipulation &#8212; postgis-book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Spatial Data Types" href="dv-lab-03.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">postgis-book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-01.html">
+   Basic SQL SELECT queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-02.html">
+   Update, Alter, Join, Views
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-03.html">
+   Spatial Data Types
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Basic Spatial Data Manipulation
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/dvignoles/postgis-book/main?urlpath=tree/docs/dv-lab-04.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/dvignoles/postgis-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/dvignoles/postgis-book/issues/new?title=Issue%20on%20page%20%2Fdv-lab-04.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/dv-lab-04.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Basic Spatial Data Manipulation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-spatial-data-manipulation">
+<h1>Basic Spatial Data Manipulation<a class="headerlink" href="#basic-spatial-data-manipulation" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">contextily</span> <span class="k">as</span> <span class="nn">cx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">engine_str</span> <span class="o">=</span> <span class="s2">&quot;postgresql+psycopg2://docker:docker@0.0.0.0:25432/restaurants&quot;</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">engine_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> sql
+<span class="o">%</span><span class="k">sql</span> $engine.url
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Connected: docker@restaurants&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some common SRIDS. Information retrieved from <a class="reference external" href="https://spatialreference.org">spatialreference.org</a></p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>SRID in PostGIS</p></th>
+<th class="head"><p>Spatial Reference System Name</p></th>
+<th class="head"><p>Datum Used</p></th>
+<th class="head"><p>Distance Unit</p></th>
+<th class="head"><p>Projection</p></th>
+<th class="head"><p>Applicable Regions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>4326</p></td>
+<td><p>WGS 1984</p></td>
+<td><p>WGS_1984</p></td>
+<td><p>degree</p></td>
+<td><p>NA</p></td>
+<td><p>World</p></td>
+</tr>
+<tr class="row-odd"><td><p>3395</p></td>
+<td><p>World Mercator</p></td>
+<td><p>WGS_1984</p></td>
+<td><p>metre</p></td>
+<td><p>Mercator_1SP</p></td>
+<td><p>World</p></td>
+</tr>
+<tr class="row-even"><td><p>4269</p></td>
+<td><p>NAD83</p></td>
+<td><p>North_American_Datum_1983</p></td>
+<td><p>degree</p></td>
+<td><p>NA</p></td>
+<td><p>North America</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESRI:102003</p></td>
+<td><p>Albers for Contiguous US</p></td>
+<td><p>North_American_Datum_1983</p></td>
+<td><p>Meter</p></td>
+<td><p>Albers_Conic_Equal_Area</p></td>
+<td><p>North America</p></td>
+</tr>
+<tr class="row-even"><td><p>ESRI:102004</p></td>
+<td><p>Lambert for Contiguous US</p></td>
+<td><p>North_American_Datum_1983</p></td>
+<td><p>Meter</p></td>
+<td><p>Lambert_Conformal_Conic_2SP</p></td>
+<td><p>North America</p></td>
+</tr>
+<tr class="row-odd"><td><p>3725</p></td>
+<td><p>UTM 18N</p></td>
+<td><p>NAD83_National_Spatial_Reference_System_2007</p></td>
+<td><p>metre</p></td>
+<td><p>Transverse_Mercator</p></td>
+<td><p>UTM 18N</p></td>
+</tr>
+<tr class="row-even"><td><p>3748</p></td>
+<td><p>NAD83(Harn) / UTM zone 18N</p></td>
+<td><p>NAD83_High_Accuracy_Regional_Network</p></td>
+<td><p>metre</p></td>
+<td><p>Transverse_Mercator</p></td>
+<td><p>UTM 18N</p></td>
+</tr>
+<tr class="row-odd"><td><p>2263</p></td>
+<td><p>SPCS Long Island</p></td>
+<td><p>North_American_Datum_1983</p></td>
+<td><p>US survey foot</p></td>
+<td><p>Lambert_Conformal_Conic_2SP</p></td>
+<td><p>New York Long Island</p></td>
+</tr>
+<tr class="row-even"><td><p>2831</p></td>
+<td><p>SPCS Long Island</p></td>
+<td><p>NAD83_High_Accuracy_Regional_Network</p></td>
+<td><p>metre</p></td>
+<td><p>Lambert</p></td>
+<td><p>New York Long Island</p></td>
+</tr>
+<tr class="row-odd"><td><p>3627</p></td>
+<td><p>NAD83(NSRS2007) / New York Long Island</p></td>
+<td><p>NAD83_National_Spatial_Reference_System_2007</p></td>
+<td><p>metre</p></td>
+<td><p>Lambert_Conformal_Conic_2SP</p></td>
+<td><p>New York Long Island</p></td>
+</tr>
+<tr class="row-even"><td><p>3628</p></td>
+<td><p>NAD83(NSRS2007) / New York Long Island (ftUS)</p></td>
+<td><p>NAD83_National_Spatial_Reference_System_2007</p></td>
+<td><p>US survey foot</p></td>
+<td><p>Lambert_Conformal_Conic_2SP</p></td>
+<td><p>New York Long Island</p></td>
+</tr>
+</tbody>
+</table>
+<p>Let’s confirm these are all in PostGIS’s reference table. If any are not, we can insert them.</p>
+<p>Looks like all 11 are present.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT srid, auth_name, auth_srid FROM spatial_ref_sys WHERE SRID IN (4326, 3395, 4269, 102003, 102004, 3725, 3748, 2263, 2831, 3627, 3628);
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+11 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>srid</th>
+            <th>auth_name</th>
+            <th>auth_srid</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2263</td>
+            <td>EPSG</td>
+            <td>2263</td>
+        </tr>
+        <tr>
+            <td>2831</td>
+            <td>EPSG</td>
+            <td>2831</td>
+        </tr>
+        <tr>
+            <td>3395</td>
+            <td>EPSG</td>
+            <td>3395</td>
+        </tr>
+        <tr>
+            <td>3627</td>
+            <td>EPSG</td>
+            <td>3627</td>
+        </tr>
+        <tr>
+            <td>3628</td>
+            <td>EPSG</td>
+            <td>3628</td>
+        </tr>
+        <tr>
+            <td>3725</td>
+            <td>EPSG</td>
+            <td>3725</td>
+        </tr>
+        <tr>
+            <td>3748</td>
+            <td>EPSG</td>
+            <td>3748</td>
+        </tr>
+        <tr>
+            <td>4269</td>
+            <td>EPSG</td>
+            <td>4269</td>
+        </tr>
+        <tr>
+            <td>4326</td>
+            <td>EPSG</td>
+            <td>4326</td>
+        </tr>
+        <tr>
+            <td>102003</td>
+            <td>ESRI</td>
+            <td>102003</td>
+        </tr>
+        <tr>
+            <td>102004</td>
+            <td>ESRI</td>
+            <td>102004</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>In this exercise we are using a shapefile containing US counties.</p>
+<p>We could use <code class="docutils literal notranslate"><span class="pre">shp2pgsql</span></code> which is packaged with postgres, but it think it is more general purpose to use <code class="docutils literal notranslate"><span class="pre">ogr2ogr</span></code> which is part of GDAL.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+-- confirm PostGIS enabled
+CREATE EXTENSION IF NOT EXISTS PostGIS;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+Done.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s unzip the shapefile archive and examine its metadata.</p>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">ogrinfo</span></code> shows that the crs is EPSG:4269</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+unzip -o ../data/cb_2020_us_county_500k.zip -d ../data/cb_2020_us_county_500k &gt; /dev/null
+ogrinfo -so ../data/cb_2020_us_county_500k cb_2020_us_county_500k
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Open of `../data/cb_2020_us_county_500k&#39;
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      using driver `ESRI Shapefile&#39; successful.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Layer name: cb_2020_us_county_500k
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metadata:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  DBF_DATE_LAST_UPDATE=2021-05-10
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry: Polygon
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Feature Count: 3234
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extent: (-179.148909, -14.548699) - (179.778470, 71.365162)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Layer SRS WKT:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GEOGCRS[&quot;NAD83&quot;,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    DATUM[&quot;North American Datum 1983&quot;,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            LENGTHUNIT[&quot;metre&quot;,1]]],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    PRIMEM[&quot;Greenwich&quot;,0,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    CS[ellipsoidal,2],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        AXIS[&quot;latitude&quot;,north,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ORDER[1],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        AXIS[&quot;longitude&quot;,east,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ORDER[2],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    ID[&quot;EPSG&quot;,4269]]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data axis to CRS axis mapping: 2,1
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATEFP: String (2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COUNTYFP: String (3.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COUNTYNS: String (8.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AFFGEOID: String (14.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GEOID: String (5.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NAME: String (100.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NAMELSAD: String (100.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STUSPS: String (2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATE_NAME: String (100.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LSAD: String (2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ALAND: Integer64 (14.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AWATER: Integer64 (14.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">ogr2gr</span></code>’s postgres driver, we can import the shapefile of multipolygons.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
+ogr2ogr -f &quot;PostgreSQL&quot; \
+ PG:&quot;host=&#39;0.0.0.0&#39; port=&#39;25432&#39; user=&#39;docker&#39; password=&#39;docker&#39; dbname=&#39;restaurants&#39;&quot; ../data/cb_2020_us_county_500k \
+ -nlt PROMOTE_TO_MULTI \
+ -nln &quot;cb_2020_us_county_500k&quot; \
+ -lco GEOMETRY_NAME=geom \
+ -overwrite 
+
+# cleanup
+rm -r ../data/cb_2020_us_county_500k
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT column_name, data_type FROM information_schema.columns
+WHERE table_schema = &#39;public&#39;
+AND table_name = &#39;cb_2020_us_county_500k&#39;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+14 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>column_name</th>
+            <th>data_type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ogc_fid</td>
+            <td>integer</td>
+        </tr>
+        <tr>
+            <td>statefp</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>countyfp</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>countyns</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>affgeoid</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>geoid</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>namelsad</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>stusps</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>state_name</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>lsad</td>
+            <td>character varying</td>
+        </tr>
+        <tr>
+            <td>aland</td>
+            <td>numeric</td>
+        </tr>
+        <tr>
+            <td>awater</td>
+            <td>numeric</td>
+        </tr>
+        <tr>
+            <td>geom</td>
+            <td>USER-DEFINED</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>PostGIS SRID matches with the output of <code class="docutils literal notranslate"><span class="pre">ogrinfo</span></code> (EPSG: 4269).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+SELECT Find_SRID(&#39;public&#39;, &#39;cb_2020_us_county_500k&#39;, &#39;geom&#39;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>find_srid</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>4269</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>For demonstration purposes, let’s update the SRID.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT UpdateGeometrySRID(&#39;cb_2020_us_county_500k&#39;, &#39;geom&#39;, 4269)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>updategeometrysrid</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>public.cb_2020_us_county_500k.geom SRID changed to 4269</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>On the fly transformation to 4326. This helps us verify we have correctly stored the geometry.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">on_the_fly</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">130</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">55</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Plot table from PostGIS in 4326, performing on the fly transformation&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+        <span class="n">county</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="o">.</span><span class="n">from_postgis</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;SELECT ST_Transform(</span><span class="si">{</span><span class="n">geom</span><span class="si">}</span><span class="s1">, 4326) as geom FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1">;&#39;</span><span class="p">,</span>
+            <span class="n">con</span>
+        <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">county</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">county</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+    <span class="n">cx</span><span class="o">.</span><span class="n">add_basemap</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">crs</span><span class="o">=</span><span class="n">county</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="n">on_the_fly</span><span class="p">(</span><span class="s1">&#39;cb_2020_us_county_500k&#39;</span><span class="p">,</span> <span class="s1">&#39;geom&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsg:4326
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 1 Axes&gt;, &lt;AxesSubplot: &gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-lab-04_19_2.png" src="_images/dv-lab-04_19_2.png" />
+</div>
+</div>
+<p>Let’s create a NY counties table.</p>
+<p>First we need NY’s fips code. Looks like it is 36.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT statefp, stusps, state_name FROM cb_2020_us_county_500k WHERE state_name = &#39;New York&#39; LIMIT 1;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>statefp</th>
+            <th>stusps</th>
+            <th>state_name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>36</td>
+            <td>NY</td>
+            <td>New York</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+DROP TABLE IF EXISTS cb_2020_ny_county_500k;
+
+CREATE TABLE cb_2020_ny_county_500k AS
+SELECT * FROM cb_2020_us_county_500k
+WHERE statefp::int = 36;
+
+SELECT statefp, name, stusps FROM cb_2020_ny_county_500k LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+Done.
+62 rows affected.
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>statefp</th>
+            <th>name</th>
+            <th>stusps</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>36</td>
+            <td>Queens</td>
+            <td>NY</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td>Cattaraugus</td>
+            <td>NY</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td>Ulster</td>
+            <td>NY</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td>Rockland</td>
+            <td>NY</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td>Putnam</td>
+            <td>NY</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>Confirm the geometry type (Point, Linestring, Polygon, Multipolygon, … ?)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT GeometryType(geom) FROM cb_2020_us_county_500k LIMIT 1;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>geometrytype</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>MULTIPOLYGON</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>And finally, lets set the new column as a transformation of our original geometry</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+ALTER TABLE cb_2020_ny_county_500k
+ADD COLUMN IF NOT EXISTS geom_utm18n geometry(MULTIPOLYGON, 3725);
+
+UPDATE cb_2020_ny_county_500k
+SET geom_utm18n = ST_Transform(geom, 3725);
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+Done.
+62 rows affected.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT Find_SRID(&#39;public&#39;, &#39;cb_2020_ny_county_500k&#39;, &#39;geom_utm18n&#39;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>find_srid</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>3725</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">on_the_fly</span><span class="p">(</span><span class="s1">&#39;cb_2020_ny_county_500k&#39;</span><span class="p">,</span> <span class="s1">&#39;geom_utm18n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">82</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">46</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsg:4326
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 1 Axes&gt;, &lt;AxesSubplot: &gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-lab-04_28_2.png" src="_images/dv-lab-04_28_2.png" />
+</div>
+</div>
+<p>Let’s confirm there is a spatial index.</p>
+<p>Our new NY table doesn’t have an index! Let’s create on for both geometries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;public&#39;;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+4 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>tablename</th>
+            <th>indexname</th>
+            <th>indexdef</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>spatial_ref_sys</td>
+            <td>spatial_ref_sys_pkey</td>
+            <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_pkey</td>
+            <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_geom_geom_idx</td>
+            <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>restaurants</td>
+            <td>restaurants_pkey</td>
+            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+CREATE INDEX cb_2020_ny_county_500k_geom_idx on cb_2020_ny_county_500k USING gist(geom);
+CREATE INDEX cb_2020_ny_county_500k_geom_utm18n_idx on cb_2020_ny_county_500k USING gist(geom_utm18n);
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+Done.
+Done.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;public&#39;;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+6 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>tablename</th>
+            <th>indexname</th>
+            <th>indexdef</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>spatial_ref_sys</td>
+            <td>spatial_ref_sys_pkey</td>
+            <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_pkey</td>
+            <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_geom_geom_idx</td>
+            <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>restaurants</td>
+            <td>restaurants_pkey</td>
+            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_ny_county_500k</td>
+            <td>cb_2020_ny_county_500k_geom_idx</td>
+            <td>CREATE INDEX cb_2020_ny_county_500k_geom_idx ON public.cb_2020_ny_county_500k USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_ny_county_500k</td>
+            <td>cb_2020_ny_county_500k_geom_utm18n_idx</td>
+            <td>CREATE INDEX cb_2020_ny_county_500k_geom_utm18n_idx ON public.cb_2020_ny_county_500k USING gist (geom_utm18n)</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="dv-lab-03.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Spatial Data Types</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Vignoles<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

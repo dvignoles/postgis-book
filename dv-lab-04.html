@@ -571,120 +571,12 @@ Done.
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
 unzip -o ../data/cb_2020_us_county_500k.zip -d ../data/cb_2020_us_county_500k &gt; /dev/null
-ogrinfo -so ../data/cb_2020_us_county_500k cb_2020_us_county_500k
+ogrinfo -so ../data/cb_2020_us_county_500k cb_2020_us_county_500k | grep &quot;EPSG&quot;
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO: Open of `../data/cb_2020_us_county_500k&#39;
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      using driver `ESRI Shapefile&#39; successful.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Layer name: cb_2020_us_county_500k
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Metadata:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  DBF_DATE_LAST_UPDATE=2021-05-10
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry: Polygon
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Feature Count: 3234
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extent: (-179.148909, -14.548699) - (179.778470, 71.365162)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Layer SRS WKT:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GEOGCRS[&quot;NAD83&quot;,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    DATUM[&quot;North American Datum 1983&quot;,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            LENGTHUNIT[&quot;metre&quot;,1]]],
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    PRIMEM[&quot;Greenwich&quot;,0,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    CS[ellipsoidal,2],
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        AXIS[&quot;latitude&quot;,north,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ORDER[1],
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        AXIS[&quot;longitude&quot;,east,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ORDER[2],
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    ID[&quot;EPSG&quot;,4269]]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data axis to CRS axis mapping: 2,1
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATEFP: String (2.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COUNTYFP: String (3.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COUNTYNS: String (8.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AFFGEOID: String (14.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GEOID: String (5.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NAME: String (100.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NAMELSAD: String (100.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STUSPS: String (2.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>STATE_NAME: String (100.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LSAD: String (2.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ALAND: Integer64 (14.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AWATER: Integer64 (14.0)
 </pre></div>
 </div>
 </div>
@@ -1084,6 +976,11 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
         </tr>
         <tr>
+            <td>restaurants</td>
+            <td>restaurants_pkey</td>
+            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
+        </tr>
+        <tr>
             <td>cb_2020_us_county_500k</td>
             <td>cb_2020_us_county_500k_pkey</td>
             <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
@@ -1092,11 +989,6 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>cb_2020_us_county_500k</td>
             <td>cb_2020_us_county_500k_geom_geom_idx</td>
             <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
-        </tr>
-        <tr>
-            <td>restaurants</td>
-            <td>restaurants_pkey</td>
-            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -1147,6 +1039,11 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
         </tr>
         <tr>
+            <td>restaurants</td>
+            <td>restaurants_pkey</td>
+            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
+        </tr>
+        <tr>
             <td>cb_2020_us_county_500k</td>
             <td>cb_2020_us_county_500k_pkey</td>
             <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
@@ -1155,11 +1052,6 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>cb_2020_us_county_500k</td>
             <td>cb_2020_us_county_500k_geom_geom_idx</td>
             <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
-        </tr>
-        <tr>
-            <td>restaurants</td>
-            <td>restaurants_pkey</td>
-            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
         </tr>
         <tr>
             <td>cb_2020_ny_county_500k</td>

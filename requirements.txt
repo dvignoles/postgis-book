@@ -5,5 +5,8 @@ matplotlib
 psycopg2
 pandas
 geopandas
+contextily
 numpy
 ghp-import
+holoviews # pyviz channel
+bokeh # pyviz channel

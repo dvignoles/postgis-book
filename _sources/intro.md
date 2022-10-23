@@ -8,7 +8,6 @@ See [repository](https://github.com/dvignoles/postgis-book) for `docker-compose.
 
 ```sh
 docker-compose up -d
-make load-data
 ```
 
 ## Contact

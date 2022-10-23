@@ -52,6 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Spatial Functions" href="dv-lab-05.html" />
     <link rel="prev" title="Spatial Data Types" href="dv-lab-03.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -131,6 +132,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Basic Spatial Data Manipulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-05.html">
+   Spatial Functions
   </a>
  </li>
 </ul>
@@ -897,7 +903,9 @@ SET geom_utm18n = ST_Transform(geom, 3725);
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
 Done.
-62 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>62 rows affected.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[]
@@ -913,9 +921,7 @@ Done.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 rows affected.
+1 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -958,7 +964,7 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
-4 rows affected.
+8 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -989,6 +995,26 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>cb_2020_us_county_500k</td>
             <td>cb_2020_us_county_500k_geom_geom_idx</td>
             <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>mappluto_nyc</td>
+            <td>mappluto_nyc_geom_idx</td>
+            <td>CREATE INDEX mappluto_nyc_geom_idx ON public.mappluto_nyc USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>mappluto_queens</td>
+            <td>mappluto_queens_geom_idx</td>
+            <td>CREATE INDEX mappluto_queens_geom_idx ON public.mappluto_queens USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>mappluto</td>
+            <td>mappluto_pkey</td>
+            <td>CREATE UNIQUE INDEX mappluto_pkey ON public.mappluto USING btree (objectid)</td>
+        </tr>
+        <tr>
+            <td>mappluto</td>
+            <td>mappluto_geom_geom_idx</td>
+            <td>CREATE INDEX mappluto_geom_geom_idx ON public.mappluto USING gist (geom)</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -1021,7 +1047,7 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
-6 rows affected.
+10 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1039,6 +1065,16 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
         </tr>
         <tr>
+            <td>cb_2020_ny_county_500k</td>
+            <td>cb_2020_ny_county_500k_geom_idx</td>
+            <td>CREATE INDEX cb_2020_ny_county_500k_geom_idx ON public.cb_2020_ny_county_500k USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_ny_county_500k</td>
+            <td>cb_2020_ny_county_500k_geom_utm18n_idx</td>
+            <td>CREATE INDEX cb_2020_ny_county_500k_geom_utm18n_idx ON public.cb_2020_ny_county_500k USING gist (geom_utm18n)</td>
+        </tr>
+        <tr>
             <td>restaurants</td>
             <td>restaurants_pkey</td>
             <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
@@ -1054,14 +1090,24 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
         </tr>
         <tr>
-            <td>cb_2020_ny_county_500k</td>
-            <td>cb_2020_ny_county_500k_geom_idx</td>
-            <td>CREATE INDEX cb_2020_ny_county_500k_geom_idx ON public.cb_2020_ny_county_500k USING gist (geom)</td>
+            <td>mappluto_nyc</td>
+            <td>mappluto_nyc_geom_idx</td>
+            <td>CREATE INDEX mappluto_nyc_geom_idx ON public.mappluto_nyc USING gist (geom)</td>
         </tr>
         <tr>
-            <td>cb_2020_ny_county_500k</td>
-            <td>cb_2020_ny_county_500k_geom_utm18n_idx</td>
-            <td>CREATE INDEX cb_2020_ny_county_500k_geom_utm18n_idx ON public.cb_2020_ny_county_500k USING gist (geom_utm18n)</td>
+            <td>mappluto_queens</td>
+            <td>mappluto_queens_geom_idx</td>
+            <td>CREATE INDEX mappluto_queens_geom_idx ON public.mappluto_queens USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>mappluto</td>
+            <td>mappluto_pkey</td>
+            <td>CREATE UNIQUE INDEX mappluto_pkey ON public.mappluto USING btree (objectid)</td>
+        </tr>
+        <tr>
+            <td>mappluto</td>
+            <td>mappluto_geom_geom_idx</td>
+            <td>CREATE INDEX mappluto_geom_geom_idx ON public.mappluto USING gist (geom)</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -1101,6 +1147,13 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Spatial Data Types</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="dv-lab-05.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Spatial Functions</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             </footer>

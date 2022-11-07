@@ -139,6 +139,11 @@ const thebe_selector_output = ".output, .cell_output"
    Spatial Functions
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-06.html">
+   Spatial Queries
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -432,13 +437,13 @@ WHERE schemaname=&#39;public&#39; AND tableowner=&#39;postgres&#39;;
             <td>rental</td>
         </tr>
         <tr>
+            <td>payment</td>
+        </tr>
+        <tr>
             <td>staff</td>
         </tr>
         <tr>
             <td>store</td>
-        </tr>
-        <tr>
-            <td>payment</td>
         </tr>
         <tr>
             <td>film</td>
@@ -489,28 +494,12 @@ Done.
     </thead>
     <tbody>
         <tr>
-            <td>21530</td>
-            <td>476</td>
-            <td>1</td>
-            <td>10617</td>
-            <td>9.99</td>
-            <td>2007-03-01 13:34:18.996577</td>
-        </tr>
-        <tr>
             <td>17504</td>
             <td>341</td>
             <td>1</td>
             <td>1778</td>
             <td>1.99</td>
             <td>2007-02-16 17:23:14.996577</td>
-        </tr>
-        <tr>
-            <td>21531</td>
-            <td>476</td>
-            <td>1</td>
-            <td>10826</td>
-            <td>6.99</td>
-            <td>2007-03-01 21:36:22.996577</td>
         </tr>
         <tr>
             <td>17506</td>
@@ -521,12 +510,28 @@ Done.
             <td>2007-02-19 19:39:56.996577</td>
         </tr>
         <tr>
-            <td>21533</td>
-            <td>476</td>
+            <td>17511</td>
+            <td>342</td>
+            <td>1</td>
+            <td>3081</td>
+            <td>2.99</td>
+            <td>2007-02-20 13:57:39.996577</td>
+        </tr>
+        <tr>
+            <td>17512</td>
+            <td>343</td>
             <td>2</td>
-            <td>12709</td>
-            <td>5.99</td>
-            <td>2007-03-18 19:28:17.996577</td>
+            <td>1547</td>
+            <td>4.99</td>
+            <td>2007-02-16 00:10:50.996577</td>
+        </tr>
+        <tr>
+            <td>17514</td>
+            <td>343</td>
+            <td>2</td>
+            <td>1879</td>
+            <td>0.99</td>
+            <td>2007-02-17 01:26:00.996577</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -667,94 +672,94 @@ Done.
     </thead>
     <tbody>
         <tr>
-            <td>21530</td>
-            <td>476</td>
+            <td>22055</td>
+            <td>535</td>
             <td>1</td>
-            <td>10617</td>
-            <td>9.99</td>
-            <td>2007-03-01 13:34:18.996577</td>
-            <td>$0.50</td>
+            <td>11855</td>
+            <td>7.99</td>
+            <td>2007-03-17 12:11:33.996577</td>
+            <td>$0.40</td>
         </tr>
         <tr>
-            <td>21531</td>
-            <td>476</td>
-            <td>1</td>
-            <td>10826</td>
-            <td>6.99</td>
-            <td>2007-03-01 21:36:22.996577</td>
-            <td>$0.35</td>
-        </tr>
-        <tr>
-            <td>21533</td>
-            <td>476</td>
+            <td>22064</td>
+            <td>535</td>
             <td>2</td>
-            <td>12709</td>
+            <td>15075</td>
             <td>5.99</td>
-            <td>2007-03-18 19:28:17.996577</td>
+            <td>2007-03-22 09:33:18.996577</td>
             <td>$0.30</td>
         </tr>
         <tr>
-            <td>21553</td>
-            <td>479</td>
+            <td>22065</td>
+            <td>535</td>
+            <td>1</td>
+            <td>15287</td>
+            <td>6.99</td>
+            <td>2007-03-22 17:48:03.996577</td>
+            <td>$0.35</td>
+        </tr>
+        <tr>
+            <td>22067</td>
+            <td>536</td>
+            <td>1</td>
+            <td>11473</td>
+            <td>6.99</td>
+            <td>2007-03-02 20:20:29.996577</td>
+            <td>$0.35</td>
+        </tr>
+        <tr>
+            <td>22070</td>
+            <td>536</td>
             <td>2</td>
-            <td>13078</td>
+            <td>12052</td>
             <td>8.99</td>
-            <td>2007-03-19 08:45:09.996577</td>
+            <td>2007-03-17 19:25:28.996577</td>
             <td>$0.45</td>
         </tr>
         <tr>
-            <td>21557</td>
-            <td>480</td>
+            <td>22072</td>
+            <td>536</td>
             <td>1</td>
-            <td>11369</td>
+            <td>15130</td>
+            <td>7.99</td>
+            <td>2007-03-22 11:32:58.996577</td>
+            <td>$0.40</td>
+        </tr>
+        <tr>
+            <td>22073</td>
+            <td>536</td>
+            <td>1</td>
+            <td>15978</td>
+            <td>8.99</td>
+            <td>2007-03-23 18:36:44.996577</td>
+            <td>$0.45</td>
+        </tr>
+        <tr>
+            <td>22081</td>
+            <td>537</td>
+            <td>1</td>
+            <td>15832</td>
+            <td>8.99</td>
+            <td>2007-03-23 13:50:01.996577</td>
+            <td>$0.45</td>
+        </tr>
+        <tr>
+            <td>22083</td>
+            <td>538</td>
+            <td>1</td>
+            <td>10732</td>
             <td>5.99</td>
-            <td>2007-03-02 16:33:07.996577</td>
+            <td>2007-03-01 17:53:44.996577</td>
             <td>$0.30</td>
         </tr>
         <tr>
-            <td>21560</td>
-            <td>480</td>
+            <td>22085</td>
+            <td>538</td>
             <td>2</td>
-            <td>13131</td>
-            <td>9.99</td>
-            <td>2007-03-19 10:36:39.996577</td>
-            <td>$0.50</td>
-        </tr>
-        <tr>
-            <td>21577</td>
-            <td>482</td>
-            <td>2</td>
-            <td>11498</td>
-            <td>6.99</td>
-            <td>2007-03-16 21:21:20.996577</td>
-            <td>$0.35</td>
-        </tr>
-        <tr>
-            <td>21581</td>
-            <td>482</td>
-            <td>2</td>
-            <td>14891</td>
-            <td>6.99</td>
-            <td>2007-03-22 02:39:28.996577</td>
-            <td>$0.35</td>
-        </tr>
-        <tr>
-            <td>21584</td>
-            <td>482</td>
-            <td>1</td>
-            <td>15849</td>
+            <td>12089</td>
             <td>5.99</td>
-            <td>2007-03-23 14:09:46.996577</td>
+            <td>2007-03-17 20:48:55.996577</td>
             <td>$0.30</td>
-        </tr>
-        <tr>
-            <td>21588</td>
-            <td>483</td>
-            <td>1</td>
-            <td>10953</td>
-            <td>6.99</td>
-            <td>2007-03-02 01:57:04.996577</td>
-            <td>$0.35</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -788,7 +793,9 @@ Done.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/dvdrental
-10 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -806,103 +813,103 @@ Done.
     </thead>
     <tbody>
         <tr>
-            <td>21530</td>
-            <td>476</td>
+            <td>22055</td>
+            <td>535</td>
             <td>1</td>
-            <td>10617</td>
-            <td>9.99</td>
-            <td>2007-03-01 13:34:18.996577</td>
-            <td>$0.50</td>
+            <td>11855</td>
+            <td>7.99</td>
+            <td>2007-03-17 12:11:33.996577</td>
+            <td>$0.40</td>
             <td>True</td>
         </tr>
         <tr>
-            <td>21531</td>
-            <td>476</td>
-            <td>1</td>
-            <td>10826</td>
-            <td>6.99</td>
-            <td>2007-03-01 21:36:22.996577</td>
-            <td>$0.35</td>
-            <td>True</td>
-        </tr>
-        <tr>
-            <td>21533</td>
-            <td>476</td>
+            <td>22064</td>
+            <td>535</td>
             <td>2</td>
-            <td>12709</td>
+            <td>15075</td>
             <td>5.99</td>
-            <td>2007-03-18 19:28:17.996577</td>
+            <td>2007-03-22 09:33:18.996577</td>
             <td>$0.30</td>
             <td>True</td>
         </tr>
         <tr>
-            <td>21553</td>
-            <td>479</td>
+            <td>22065</td>
+            <td>535</td>
+            <td>1</td>
+            <td>15287</td>
+            <td>6.99</td>
+            <td>2007-03-22 17:48:03.996577</td>
+            <td>$0.35</td>
+            <td>True</td>
+        </tr>
+        <tr>
+            <td>22067</td>
+            <td>536</td>
+            <td>1</td>
+            <td>11473</td>
+            <td>6.99</td>
+            <td>2007-03-02 20:20:29.996577</td>
+            <td>$0.35</td>
+            <td>True</td>
+        </tr>
+        <tr>
+            <td>22070</td>
+            <td>536</td>
             <td>2</td>
-            <td>13078</td>
+            <td>12052</td>
             <td>8.99</td>
-            <td>2007-03-19 08:45:09.996577</td>
+            <td>2007-03-17 19:25:28.996577</td>
             <td>$0.45</td>
             <td>True</td>
         </tr>
         <tr>
-            <td>21557</td>
-            <td>480</td>
+            <td>22072</td>
+            <td>536</td>
             <td>1</td>
-            <td>11369</td>
+            <td>15130</td>
+            <td>7.99</td>
+            <td>2007-03-22 11:32:58.996577</td>
+            <td>$0.40</td>
+            <td>True</td>
+        </tr>
+        <tr>
+            <td>22073</td>
+            <td>536</td>
+            <td>1</td>
+            <td>15978</td>
+            <td>8.99</td>
+            <td>2007-03-23 18:36:44.996577</td>
+            <td>$0.45</td>
+            <td>True</td>
+        </tr>
+        <tr>
+            <td>22081</td>
+            <td>537</td>
+            <td>1</td>
+            <td>15832</td>
+            <td>8.99</td>
+            <td>2007-03-23 13:50:01.996577</td>
+            <td>$0.45</td>
+            <td>True</td>
+        </tr>
+        <tr>
+            <td>22083</td>
+            <td>538</td>
+            <td>1</td>
+            <td>10732</td>
             <td>5.99</td>
-            <td>2007-03-02 16:33:07.996577</td>
+            <td>2007-03-01 17:53:44.996577</td>
             <td>$0.30</td>
             <td>True</td>
         </tr>
         <tr>
-            <td>21560</td>
-            <td>480</td>
+            <td>22085</td>
+            <td>538</td>
             <td>2</td>
-            <td>13131</td>
-            <td>9.99</td>
-            <td>2007-03-19 10:36:39.996577</td>
-            <td>$0.50</td>
-            <td>True</td>
-        </tr>
-        <tr>
-            <td>21577</td>
-            <td>482</td>
-            <td>2</td>
-            <td>11498</td>
-            <td>6.99</td>
-            <td>2007-03-16 21:21:20.996577</td>
-            <td>$0.35</td>
-            <td>True</td>
-        </tr>
-        <tr>
-            <td>21581</td>
-            <td>482</td>
-            <td>2</td>
-            <td>14891</td>
-            <td>6.99</td>
-            <td>2007-03-22 02:39:28.996577</td>
-            <td>$0.35</td>
-            <td>True</td>
-        </tr>
-        <tr>
-            <td>21584</td>
-            <td>482</td>
-            <td>1</td>
-            <td>15849</td>
+            <td>12089</td>
             <td>5.99</td>
-            <td>2007-03-23 14:09:46.996577</td>
+            <td>2007-03-17 20:48:55.996577</td>
             <td>$0.30</td>
-            <td>True</td>
-        </tr>
-        <tr>
-            <td>21588</td>
-            <td>483</td>
-            <td>1</td>
-            <td>10953</td>
-            <td>6.99</td>
-            <td>2007-03-02 01:57:04.996577</td>
-            <td>$0.35</td>
             <td>True</td>
         </tr>
     </tbody>
@@ -927,7 +934,9 @@ LIMIT 10;
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/dvdrental
-10 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>

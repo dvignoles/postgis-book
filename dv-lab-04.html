@@ -144,6 +144,11 @@ const thebe_selector_output = ".output, .cell_output"
    Spatial Queries
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-07.html">
+   Update and Proximity
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -969,7 +974,7 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
-8 rows affected.
+10 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -987,14 +992,9 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
         </tr>
         <tr>
-            <td>cb_2020_us_county_500k</td>
-            <td>cb_2020_us_county_500k_geom_geom_idx</td>
-            <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
-        </tr>
-        <tr>
-            <td>cb_2020_us_county_500k</td>
-            <td>cb_2020_us_county_500k_pkey</td>
-            <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
+            <td>restaurants</td>
+            <td>restaurants_pkey</td>
+            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
         </tr>
         <tr>
             <td>mappluto</td>
@@ -1007,9 +1007,14 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE INDEX mappluto_geom_geom_idx ON public.mappluto USING gist (geom)</td>
         </tr>
         <tr>
-            <td>restaurants</td>
-            <td>restaurants_pkey</td>
-            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_pkey</td>
+            <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_geom_geom_idx</td>
+            <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
         </tr>
         <tr>
             <td>mappluto_nyc</td>
@@ -1020,6 +1025,16 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>mappluto_queens</td>
             <td>mappluto_queens_geom_idx</td>
             <td>CREATE INDEX mappluto_queens_geom_idx ON public.mappluto_queens USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>nyc_subway_stations</td>
+            <td>nyc_subway_stations_pkey</td>
+            <td>CREATE UNIQUE INDEX nyc_subway_stations_pkey ON public.nyc_subway_stations USING btree (ogc_fid)</td>
+        </tr>
+        <tr>
+            <td>nyc_subway_stations</td>
+            <td>nyc_subway_stations_geom_geom_idx</td>
+            <td>CREATE INDEX nyc_subway_stations_geom_geom_idx ON public.nyc_subway_stations USING gist (geom)</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -1052,7 +1067,7 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
-10 rows affected.
+12 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1070,14 +1085,9 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE UNIQUE INDEX spatial_ref_sys_pkey ON public.spatial_ref_sys USING btree (srid)</td>
         </tr>
         <tr>
-            <td>cb_2020_us_county_500k</td>
-            <td>cb_2020_us_county_500k_geom_geom_idx</td>
-            <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
-        </tr>
-        <tr>
-            <td>cb_2020_us_county_500k</td>
-            <td>cb_2020_us_county_500k_pkey</td>
-            <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
+            <td>restaurants</td>
+            <td>restaurants_pkey</td>
+            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
         </tr>
         <tr>
             <td>mappluto</td>
@@ -1090,19 +1100,14 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>CREATE INDEX mappluto_geom_geom_idx ON public.mappluto USING gist (geom)</td>
         </tr>
         <tr>
-            <td>cb_2020_ny_county_500k</td>
-            <td>cb_2020_ny_county_500k_geom_idx</td>
-            <td>CREATE INDEX cb_2020_ny_county_500k_geom_idx ON public.cb_2020_ny_county_500k USING gist (geom)</td>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_pkey</td>
+            <td>CREATE UNIQUE INDEX cb_2020_us_county_500k_pkey ON public.cb_2020_us_county_500k USING btree (ogc_fid)</td>
         </tr>
         <tr>
-            <td>cb_2020_ny_county_500k</td>
-            <td>cb_2020_ny_county_500k_geom_utm18n_idx</td>
-            <td>CREATE INDEX cb_2020_ny_county_500k_geom_utm18n_idx ON public.cb_2020_ny_county_500k USING gist (geom_utm18n)</td>
-        </tr>
-        <tr>
-            <td>restaurants</td>
-            <td>restaurants_pkey</td>
-            <td>CREATE UNIQUE INDEX restaurants_pkey ON public.restaurants USING btree (id)</td>
+            <td>cb_2020_us_county_500k</td>
+            <td>cb_2020_us_county_500k_geom_geom_idx</td>
+            <td>CREATE INDEX cb_2020_us_county_500k_geom_geom_idx ON public.cb_2020_us_county_500k USING gist (geom)</td>
         </tr>
         <tr>
             <td>mappluto_nyc</td>
@@ -1113,6 +1118,26 @@ SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = &#39;pu
             <td>mappluto_queens</td>
             <td>mappluto_queens_geom_idx</td>
             <td>CREATE INDEX mappluto_queens_geom_idx ON public.mappluto_queens USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_ny_county_500k</td>
+            <td>cb_2020_ny_county_500k_geom_idx</td>
+            <td>CREATE INDEX cb_2020_ny_county_500k_geom_idx ON public.cb_2020_ny_county_500k USING gist (geom)</td>
+        </tr>
+        <tr>
+            <td>cb_2020_ny_county_500k</td>
+            <td>cb_2020_ny_county_500k_geom_utm18n_idx</td>
+            <td>CREATE INDEX cb_2020_ny_county_500k_geom_utm18n_idx ON public.cb_2020_ny_county_500k USING gist (geom_utm18n)</td>
+        </tr>
+        <tr>
+            <td>nyc_subway_stations</td>
+            <td>nyc_subway_stations_pkey</td>
+            <td>CREATE UNIQUE INDEX nyc_subway_stations_pkey ON public.nyc_subway_stations USING btree (ogc_fid)</td>
+        </tr>
+        <tr>
+            <td>nyc_subway_stations</td>
+            <td>nyc_subway_stations_geom_geom_idx</td>
+            <td>CREATE INDEX nyc_subway_stations_geom_geom_idx ON public.nyc_subway_stations USING gist (geom)</td>
         </tr>
     </tbody>
 </table></div></div>

@@ -1,0 +1,1060 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Update and Proximity &#8212; postgis-book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Spatial Queries" href="dv-lab-06.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">postgis-book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-01.html">
+   Basic SQL SELECT queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-02.html">
+   Update, Alter, Join, Views
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-03.html">
+   Spatial Data Types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-04.html">
+   Basic Spatial Data Manipulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-05.html">
+   Spatial Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-06.html">
+   Spatial Queries
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Update and Proximity
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/dvignoles/postgis-book/main?urlpath=tree/docs/dv-lab-07.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/dvignoles/postgis-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/dvignoles/postgis-book/issues/new?title=Issue%20on%20page%20%2Fdv-lab-07.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/dv-lab-07.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replace-exceptional-values-with-spatial-average">
+   Replace exceptional values with Spatial Average
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-proximity">
+   Spatial Proximity
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Update and Proximity</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replace-exceptional-values-with-spatial-average">
+   Replace exceptional values with Spatial Average
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-proximity">
+   Spatial Proximity
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="update-and-proximity">
+<h1>Update and Proximity<a class="headerlink" href="#update-and-proximity" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">folium</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">engine_str</span> <span class="o">=</span> <span class="s2">&quot;postgresql+psycopg2://docker:docker@0.0.0.0:25432/restaurants&quot;</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">engine_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> sql
+<span class="o">%</span><span class="k">sql</span> $engine.url
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Connected: docker@restaurants&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We are using a new dataset, NYC subway stations retrieved from <a class="reference external" href="https://data.cityofnewyork.us/Transportation/Subway-Stations/arq3-7z49">NYC Open Data</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nyc open data automatically generates the layer name</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="s2">&quot;geo_export_4accb246-9c7e-4ce4-92bd-300470ade60a&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ogr2ogr</span></code> command failed with this error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span>  <span class="n">numeric</span> <span class="n">field</span> <span class="n">overflow</span>
+</pre></div>
+</div>
+<p>As a workaround, we’ll use the layer creation option <code class="docutils literal notranslate"><span class="pre">precision=NO</span></code> to use float type instead of numeric type which has a fixed precision.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span> -s &quot;$layer&quot;
+unzip -o &quot;../data/Subway Stations.zip&quot; -d &quot;../data/Subway Stations&quot; &gt; /dev/null
+
+ogr2ogr -f &quot;PostgreSQL&quot; \
+ PG:&quot;host=&#39;0.0.0.0&#39; port=&#39;25432&#39; user=&#39;docker&#39; password=&#39;docker&#39; dbname=&#39;restaurants&#39;&quot; &quot;../data/Subway Stations&quot; $1 \
+ -nlt PROMOTE_TO_MULTI \
+ -nln &quot;nyc_subway_stations&quot; \
+ -lco GEOMETRY_NAME=geom \
+ -lco precision=NO \
+ -a_srs EPSG:4326 \
+ -overwrite 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Confirm presence of spatial index</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT tablename, indexname, indexdef FROM pg_indexes WHERE tablename = &#39;nyc_subway_stations&#39;;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+2 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>tablename</th>
+            <th>indexname</th>
+            <th>indexdef</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>nyc_subway_stations</td>
+            <td>nyc_subway_stations_pkey</td>
+            <td>CREATE UNIQUE INDEX nyc_subway_stations_pkey ON public.nyc_subway_stations USING btree (ogc_fid)</td>
+        </tr>
+        <tr>
+            <td>nyc_subway_stations</td>
+            <td>nyc_subway_stations_geom_geom_idx</td>
+            <td>CREATE INDEX nyc_subway_stations_geom_geom_idx ON public.nyc_subway_stations USING gist (geom)</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<section id="replace-exceptional-values-with-spatial-average">
+<h2>Replace exceptional values with Spatial Average<a class="headerlink" href="#replace-exceptional-values-with-spatial-average" title="Permalink to this headline">#</a></h2>
+<p>In the mappluto dataset, there are soe properties with extremely low <code class="docutils literal notranslate"><span class="pre">assesstot</span></code> values. Lets update these to the average value of properties within 800 meters. The geometry of the mappluto table is in <code class="docutils literal notranslate"><span class="pre">EPSG:2263</span></code>, a projection in feet. 800 meters would be 2624.67 feet.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT assesstot FROM mappluto_queens
+WHERE assesstot &lt; 1000 OR assesstot is NULL
+LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>assesstot</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>0.0</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+EXPLAIN ANALYZE
+WITH mpq_fill AS
+(
+    SELECT mpq.objectid as objectid, AVG(mpqb.assesstot) as avg_assesstot
+    FROM mappluto_queens as mpq
+    JOIN mappluto_queens as mpqb
+    ON ST_DWithin(mpq.geom, mpqb.geom, 2624.67)
+    WHERE mpq.assesstot IS NULL OR mpq.assesstot &lt; 1000
+    GROUP BY mpq.objectid
+)
+UPDATE mappluto_queens mpq
+SET assesstot = mpq_fill.avg_assesstot
+FROM mpq_fill
+WHERE (mpq.assesstot IS NULL or mpq.assesstot &lt; 1000) AND mpq.objectid = mpq_fill.objectid;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>QUERY PLAN</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Update on mappluto_queens mpq  (cost=1452181.67..1464676.42 rows=0 width=0) (actual time=22199.276..22199.280 rows=0 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;-&gt;  Hash Join  (cost=1452181.67..1464676.42 rows=10 width=50) (actual time=22085.145..22113.925 rows=2739 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hash Cond: (mpq.objectid = mpq_fill.objectid)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on mappluto_queens mpq  (cost=0.00..12490.10 rows=1771 width=10) (actual time=308.921..336.725 rows=2739 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: ((assesstot IS NULL) OR (assesstot &lt; &#x27;1000&#x27;::double precision))</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 321509</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Hash  (cost=1452159.53..1452159.53 rows=1771 width=48) (actual time=21776.211..21776.213 rows=2739 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buckets: 4096 (originally 2048)  Batches: 1 (originally 1)  Memory Usage: 257kB</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Subquery Scan on mpq_fill  (cost=1452119.68..1452159.53 rows=1771 width=48) (actual time=21774.912..21775.839 rows=2739 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  HashAggregate  (cost=1452119.68..1452141.82 rows=1771 width=12) (actual time=21774.906..21775.440 rows=2739 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Group Key: mpq_1.objectid</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Batches: 1  Memory Usage: 625kB</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Nested Loop  (cost=0.41..1451034.26 rows=217084 width=12) (actual time=0.216..20676.373 rows=8219685 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on mappluto_queens mpq_1  (cost=0.00..12490.10 rows=1771 width=152) (actual time=0.011..29.632 rows=2739 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: ((assesstot IS NULL) OR (assesstot &lt; &#x27;1000&#x27;::double precision))</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 321509</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Index Scan using mappluto_queens_geom_idx on mappluto_queens mpqb  (cost=0.41..811.96 rows=32 width=156) (actual time=0.088..7.314 rows=3001 loops=2739)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Index Cond: (geom &amp;&amp; st_expand(mpq_1.geom, &#x27;2624.67&#x27;::double precision))</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: st_dwithin(mpq_1.geom, geom, &#x27;2624.67&#x27;::double precision)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 763</td>
+        </tr>
+        <tr>
+            <td>Planning Time: 18.536 ms</td>
+        </tr>
+        <tr>
+            <td>JIT:</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;Functions: 27</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;Options: Inlining true, Optimization true, Expressions true, Deforming true</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;Timing: Generation 2.465 ms, Inlining 66.974 ms, Optimization 159.655 ms, Emission 97.878 ms, Total 326.971 ms</td>
+        </tr>
+        <tr>
+            <td>Execution Time: 22249.015 ms</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>After filling, there is only one Null record. I suspect this record didn’t have any nearby neighbors within 800 meters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT objectid, assesstot FROM mappluto_queens WHERE assesstot is NULL;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>objectid</th>
+            <th>assesstot</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>485288</td>
+            <td>None</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+<section id="spatial-proximity">
+<h2>Spatial Proximity<a class="headerlink" href="#spatial-proximity" title="Permalink to this headline">#</a></h2>
+<p>Five closest fast food restaurants to each subway station entrance including restaurant names &amp; distances to the station.</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">&lt;-&gt;</span></code> operator lets us compare relative distance without doing full ST_Distance calculation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+SELECT 
+sb.ogc_fid as sb_id,
+sb.name as sb_name,
+rt.id as rt_id,
+rt.name as rt_name,
+ST_Distance(geography(sb.geom), geography(rt.geom)) distance_m
+FROM nyc_subway_stations sb
+CROSS JOIN LATERAL
+(
+    SELECT 
+        id,
+        name,
+        geom
+    FROM restaurants
+    ORDER BY sb.geom &lt;-&gt; geom
+    LIMIT 5
+) as rt
+LIMIT 25;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>sb_id</th>
+            <th>sb_name</th>
+            <th>rt_id</th>
+            <th>rt_name</th>
+            <th>distance_m</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Astor Pl</td>
+            <td>23591</td>
+            <td>MCD</td>
+            <td>206.19760499</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Astor Pl</td>
+            <td>42707</td>
+            <td>TCB</td>
+            <td>213.52621397</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Astor Pl</td>
+            <td>29384</td>
+            <td>MCD</td>
+            <td>229.74810986</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Astor Pl</td>
+            <td>41069</td>
+            <td>TCB</td>
+            <td>580.74329365</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Astor Pl</td>
+            <td>14730</td>
+            <td>KFC</td>
+            <td>505.68644509</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Canal St</td>
+            <td>20117</td>
+            <td>MCD</td>
+            <td>79.73184965</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Canal St</td>
+            <td>6849</td>
+            <td>BKG</td>
+            <td>111.40386844</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Canal St</td>
+            <td>20185</td>
+            <td>MCD</td>
+            <td>505.98773468</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Canal St</td>
+            <td>30144</td>
+            <td>MCD</td>
+            <td>552.49421209</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Canal St</td>
+            <td>49448</td>
+            <td>WDY</td>
+            <td>942.42202175</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>50th St</td>
+            <td>27258</td>
+            <td>MCD</td>
+            <td>64.54123125</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>50th St</td>
+            <td>32049</td>
+            <td>PZH</td>
+            <td>102.45757122</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>50th St</td>
+            <td>17142</td>
+            <td>KFC</td>
+            <td>294.09186438</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>50th St</td>
+            <td>27004</td>
+            <td>MCD</td>
+            <td>332.99879571</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>50th St</td>
+            <td>5633</td>
+            <td>BKG</td>
+            <td>342.19997196</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Bergen St</td>
+            <td>23154</td>
+            <td>MCD</td>
+            <td>376.33172222</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Bergen St</td>
+            <td>17481</td>
+            <td>KFC</td>
+            <td>474.2291273</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Bergen St</td>
+            <td>21267</td>
+            <td>MCD</td>
+            <td>663.01884652</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Bergen St</td>
+            <td>16381</td>
+            <td>KFC</td>
+            <td>1039.44588622</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Bergen St</td>
+            <td>29481</td>
+            <td>MCD</td>
+            <td>999.77875689</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Pennsylvania Ave</td>
+            <td>48290</td>
+            <td>WDY</td>
+            <td>785.26024524</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Pennsylvania Ave</td>
+            <td>6025</td>
+            <td>BKG</td>
+            <td>801.2780765</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Pennsylvania Ave</td>
+            <td>21128</td>
+            <td>MCD</td>
+            <td>893.86681411</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Pennsylvania Ave</td>
+            <td>29534</td>
+            <td>MCD</td>
+            <td>1332.11924339</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Pennsylvania Ave</td>
+            <td>26769</td>
+            <td>MCD</td>
+            <td>1453.20160444</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>Testing performance of query</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+EXPLAIN ANALYZE
+SELECT 
+sb.ogc_fid as sb_id,
+sb.name as sb_name,
+rt.id as rt_id,
+rt.name as rt_name,
+ST_Distance(geography(sb.geom), geography(rt.geom)) distance_m
+FROM nyc_subway_stations sb
+CROSS JOIN LATERAL
+(
+    SELECT 
+        id,
+        name,
+        geom
+    FROM restaurants
+    ORDER BY sb.geom &lt;-&gt; geom
+    LIMIT 5
+) as rt
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>QUERY PLAN</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nested Loop  (cost=65238.04..30916795.44 rows=2365 width=34) (actual time=136.240..14432.527 rows=2365 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;-&gt;  Seq Scan on nyc_subway_stations sb  (cost=0.00..14.73 rows=473 width=58) (actual time=0.011..0.308 rows=473 loops=1)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;-&gt;  Limit  (cost=65238.04..65238.05 rows=5 width=48) (actual time=30.269..30.270 rows=5 loops=473)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Sort  (cost=65238.04..65363.04 rows=50002 width=48) (actual time=30.268..30.268 rows=5 loops=473)</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sort Key: ((sb.geom &lt;-&gt; restaurants.geom))</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sort Method: top-N heapsort  Memory: 25kB</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on restaurants  (cost=0.00..64407.52 rows=50002 width=48) (actual time=0.105..22.083 rows=50002 loops=473)</td>
+        </tr>
+        <tr>
+            <td>Planning Time: 0.148 ms</td>
+        </tr>
+        <tr>
+            <td>JIT:</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;Functions: 6</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;Options: Inlining true, Optimization true, Expressions true, Deforming true</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;Timing: Generation 1.226 ms, Inlining 14.372 ms, Optimization 57.293 ms, Emission 33.943 ms, Total 106.834 ms</td>
+        </tr>
+        <tr>
+            <td>Execution Time: 14434.049 ms</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="dv-lab-06.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Spatial Queries</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Vignoles<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

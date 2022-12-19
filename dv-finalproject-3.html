@@ -1464,9 +1464,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 rows affected.
+5 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1518,6 +1516,14 @@ title="Print to PDF"
 <h2>Storm Catalog<a class="headerlink" href="#storm-catalog" title="Permalink to this headline">#</a></h2>
 <p>Events containing one or more factors exceeding their long term monthly statistical max (iqrmax) were considered probable storm days.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">storm_index</span></code> column is a count of the number of factors (1-5) exceeding their monthly threshold values.</p>
+<p>The factors are:</p>
+<ul class="simple">
+<li><p>Daily mean streamflow at Bronx River</p></li>
+<li><p>Daily max gage height at Bronx River</p></li>
+<li><p>Daily max waterlevel at the Battery</p></li>
+<li><p>Daily sum of precipitation as NYC weather stations</p></li>
+<li><p>Daily sum of Flooding 311 Service Requests in NYC</p></li>
+</ul>
 <p>Series of consecutive “storm days” were aggregated into a single “storm” record.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">storm_index</span></code> in the table below is the maximum <code class="docutils literal notranslate"><span class="pre">storm_index</span></code> of any day within the storm duration.</p>
 <div class="cell docutils container">
@@ -1687,6 +1693,7 @@ OR
     </tbody>
 </table></div></div>
 </div>
+<p>Lets note these notable storm indices down for later.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IRENE</span> <span class="o">=</span> <span class="mi">17</span>
@@ -1699,7 +1706,7 @@ OR
 </section>
 <section id="nta-311-aggregation">
 <h2>NTA 311 Aggregation<a class="headerlink" href="#nta-311-aggregation" title="Permalink to this headline">#</a></h2>
-<p>Neighborhood tabulation areas were used to aggregate 311 flooding calls spatially.</p>
+<p><a class="reference external" href="https://data.cityofnewyork.us/City-Government/2010-Neighborhood-Tabulation-Areas-NTAs-/cpf4-rkhq">Neighborhood tabulation areas</a> were used to aggregate 311 flooding calls spatially.</p>
 <p>The table below represents the total number of flooding 311 calls for each NTA in the study period (2010-present).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1709,15 +1716,72 @@ OR
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-(psycopg2.errors.UndefinedTable) relation &quot;nta_most_flood_complaints&quot; does not exist
-LINE 1: SELECT ntacode, ntaname, num_complaints FROM nta_most_flood_...
-                                                     ^
-
-[SQL: SELECT ntacode, ntaname, num_complaints FROM nta_most_flood_complaints LIMIT 10;]
-(Background on this error at: https://sqlalche.me/e/14/f405)
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10 rows affected.
+</pre></div>
 </div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>ntacode</th>
+            <th>ntaname</th>
+            <th>num_complaints</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>QN55</td>
+            <td>South Ozone Park</td>
+            <td>2784</td>
+        </tr>
+        <tr>
+            <td>QN57</td>
+            <td>Lindenwood-Howard Beach</td>
+            <td>2691</td>
+        </tr>
+        <tr>
+            <td>BK88</td>
+            <td>Borough Park</td>
+            <td>2173</td>
+        </tr>
+        <tr>
+            <td>SI54</td>
+            <td>Great Kills</td>
+            <td>2150</td>
+        </tr>
+        <tr>
+            <td>SI45</td>
+            <td>New Dorp-Midland Beach</td>
+            <td>2051</td>
+        </tr>
+        <tr>
+            <td>QN08</td>
+            <td>St. Albans</td>
+            <td>2009</td>
+        </tr>
+        <tr>
+            <td>SI05</td>
+            <td>New Springville-Bloomfield-Travis</td>
+            <td>1965</td>
+        </tr>
+        <tr>
+            <td>BK50</td>
+            <td>Canarsie</td>
+            <td>1899</td>
+        </tr>
+        <tr>
+            <td>BK45</td>
+            <td>Georgetown-Marine Park-Bergen Beach-Mill Basin</td>
+            <td>1855</td>
+        </tr>
+        <tr>
+            <td>QN15</td>
+            <td>Far Rockaway-Bayswater</td>
+            <td>1646</td>
+        </tr>
+    </tbody>
+</table></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1728,12 +1792,10 @@ SELECT * FROM nta_most_flood_complaints;
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-(psycopg2.errors.UndefinedTable) relation &quot;nta_most_flood_complaints&quot; does not exist
-LINE 1: SELECT * FROM nta_most_flood_complaints;
-                      ^
-
-[SQL: SELECT * FROM nta_most_flood_complaints;]
-(Background on this error at: https://sqlalche.me/e/14/f405)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>194 rows affected.
+Returning data to local variable _nta_311
 </pre></div>
 </div>
 </div>
@@ -1748,16 +1810,10 @@ LINE 1: SELECT * FROM nta_most_flood_complaints;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nta_311</span> <span class="o">=</span> <span class="n">rs_to_gdf</span><span class="p">(</span><span class="n">_nta_311</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">nta_311</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;num_complaints&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;_nta_311&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;NYC Flooding 311 Complaints 2010-2022&#39;)
 </pre></div>
 </div>
+<img alt="_images/dv-finalproject-3_38_1.png" src="_images/dv-finalproject-3_38_1.png" />
 </div>
 </div>
 <p>The table below represents the number of 311 calls and percentage of total 311 calls per storm for each NTA.</p>
@@ -1893,7 +1949,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2013-06-28&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_40_1.png" src="_images/dv-finalproject-3_40_1.png" />
+<img alt="_images/dv-finalproject-3_41_1.png" src="_images/dv-finalproject-3_41_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1907,7 +1963,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2012-11-06&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_41_1.png" src="_images/dv-finalproject-3_41_1.png" />
+<img alt="_images/dv-finalproject-3_42_1.png" src="_images/dv-finalproject-3_42_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1921,7 +1977,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2011-08-24&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_42_1.png" src="_images/dv-finalproject-3_42_1.png" />
+<img alt="_images/dv-finalproject-3_43_1.png" src="_images/dv-finalproject-3_43_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1935,7 +1991,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2012-10-29&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_43_1.png" src="_images/dv-finalproject-3_43_1.png" />
+<img alt="_images/dv-finalproject-3_44_1.png" src="_images/dv-finalproject-3_44_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1949,7 +2005,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2021-09-01&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_44_1.png" src="_images/dv-finalproject-3_44_1.png" />
+<img alt="_images/dv-finalproject-3_45_1.png" src="_images/dv-finalproject-3_45_1.png" />
 </div>
 </div>
 </section>
@@ -2142,7 +2198,7 @@ Returning data to local variable _top_storm_clusters
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_51_1.png" src="_images/dv-finalproject-3_51_1.png" />
+<img alt="_images/dv-finalproject-3_52_1.png" src="_images/dv-finalproject-3_52_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2156,7 +2212,7 @@ Returning data to local variable _top_storm_clusters
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_52_1.png" src="_images/dv-finalproject-3_52_1.png" />
+<img alt="_images/dv-finalproject-3_53_1.png" src="_images/dv-finalproject-3_53_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2170,7 +2226,7 @@ Returning data to local variable _top_storm_clusters
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_53_1.png" src="_images/dv-finalproject-3_53_1.png" />
+<img alt="_images/dv-finalproject-3_54_1.png" src="_images/dv-finalproject-3_54_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2184,7 +2240,7 @@ Returning data to local variable _top_storm_clusters
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2012-10-29&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_54_1.png" src="_images/dv-finalproject-3_54_1.png" />
+<img alt="_images/dv-finalproject-3_55_1.png" src="_images/dv-finalproject-3_55_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2198,7 +2254,7 @@ Returning data to local variable _top_storm_clusters
  &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01&#39;}&gt;)
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_55_1.png" src="_images/dv-finalproject-3_55_1.png" />
+<img alt="_images/dv-finalproject-3_56_1.png" src="_images/dv-finalproject-3_56_1.png" />
 </div>
 </div>
 </section>
@@ -2236,7 +2292,7 @@ Returning data to local variable _susceptible
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: &gt;
 </pre></div>
 </div>
-<img alt="_images/dv-finalproject-3_58_1.png" src="_images/dv-finalproject-3_58_1.png" />
+<img alt="_images/dv-finalproject-3_59_1.png" src="_images/dv-finalproject-3_59_1.png" />
 </div>
 </div>
 </section>

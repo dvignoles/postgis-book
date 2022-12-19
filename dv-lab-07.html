@@ -154,6 +154,21 @@ const thebe_selector_output = ".output, .cell_output"
    Geometry Operations and Spatial Analysis
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-finalproject-01.html">
+   NYC Storms &amp; 311 Flooding Service Requests Part 1: Data Preparation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-finalproject-2.html">
+   NYC Storms &amp; 311 Flooding Service Requests Part 2: Storm Identification &amp; Spatial Queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-finalproject-3.html">
+   NYC Storms &amp; 311 Flooding Service Requests Part 3: Report
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -525,7 +540,9 @@ LIMIT 5;
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
-5 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -537,18 +554,6 @@ LIMIT 5;
     <tbody>
         <tr>
             <td>None</td>
-        </tr>
-        <tr>
-            <td>None</td>
-        </tr>
-        <tr>
-            <td>420.0</td>
-        </tr>
-        <tr>
-            <td>0.0</td>
-        </tr>
-        <tr>
-            <td>0.0</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -577,7 +582,7 @@ WHERE (mpq.assesstot IS NULL or mpq.assesstot &lt; 1000) AND mpq.objectid = mpq_
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/restaurants
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>26 rows affected.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>25 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -588,55 +593,55 @@ WHERE (mpq.assesstot IS NULL or mpq.assesstot &lt; 1000) AND mpq.objectid = mpq_
     </thead>
     <tbody>
         <tr>
-            <td>Update on mappluto_queens mpq  (cost=97523086.00..97536072.56 rows=0 width=0) (actual time=22597.237..22597.240 rows=0 loops=1)</td>
+            <td>Update on mappluto_queens mpq  (cost=1721187.84..1733684.94 rows=0 width=0) (actual time=443.268..443.272 rows=0 loops=1)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;-&gt;  Hash Join  (cost=97523086.00..97536072.56 rows=114284 width=50) (actual time=22532.138..22558.910 rows=2739 loops=1)</td>
+            <td>&nbsp;&nbsp;-&gt;  Hash Join  (cost=1721187.84..1733684.94 rows=14 width=50) (actual time=395.786..424.314 rows=1 loops=1)</td>
         </tr>
         <tr>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hash Cond: (mpq.objectid = mpq_fill.objectid)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on mappluto_queens mpq  (cost=0.00..12680.21 rows=114284 width=10) (actual time=320.530..346.602 rows=2739 loops=1)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on mappluto_queens mpq  (cost=0.00..12491.58 rows=2106 width=10) (actual time=356.397..384.920 rows=1 loops=1)</td>
         </tr>
         <tr>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: ((assesstot IS NULL) OR (assesstot &lt; &#x27;1000&#x27;::double precision))</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 321509</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 324247</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Hash  (cost=97523083.50..97523083.50 rows=200 width=48) (actual time=22211.594..22211.597 rows=2739 loops=1)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Hash  (cost=1721161.51..1721161.51 rows=2106 width=48) (actual time=39.349..39.352 rows=1 loops=1)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buckets: 4096 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 257kB</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buckets: 4096  Batches: 1  Memory Usage: 33kB</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Subquery Scan on mpq_fill  (cost=97523079.00..97523083.50 rows=200 width=48) (actual time=22210.250..22211.195 rows=2739 loops=1)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Subquery Scan on mpq_fill  (cost=1721114.13..1721161.51 rows=2106 width=48) (actual time=39.343..39.347 rows=1 loops=1)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  HashAggregate  (cost=97523079.00..97523081.50 rows=200 width=12) (actual time=22210.244..22210.787 rows=2739 loops=1)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  HashAggregate  (cost=1721114.13..1721140.45 rows=2106 width=12) (actual time=39.327..39.330 rows=1 loops=1)</td>
         </tr>
         <tr>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Group Key: mpq_1.objectid</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Batches: 1  Memory Usage: 641kB</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Batches: 1  Memory Usage: 121kB</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Nested Loop  (cost=0.41..97329106.48 rows=38794504 width=12) (actual time=0.234..21127.520 rows=8219685 loops=1)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Nested Loop  (cost=0.41..1719795.05 rows=263815 width=12) (actual time=0.934..39.298 rows=1 loops=1)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on mappluto_queens mpq_1  (cost=0.00..12680.21 rows=114284 width=36) (actual time=0.018..27.732 rows=2739 loops=1)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on mappluto_queens mpq_1  (cost=0.00..12491.58 rows=2106 width=152) (actual time=0.039..38.401 rows=1 loops=1)</td>
         </tr>
         <tr>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: ((assesstot IS NULL) OR (assesstot &lt; &#x27;1000&#x27;::double precision))</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 321509</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 324247</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Index Scan using mappluto_queens_geom_idx on mappluto_queens mpqb  (cost=0.41..851.19 rows=34 width=40) (actual time=0.071..7.471 rows=3001 loops=2739)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Index Scan using mappluto_queens_geom_idx on mappluto_queens mpqb  (cost=0.41..810.37 rows=32 width=156) (actual time=0.871..0.872 rows=1 loops=1)</td>
         </tr>
         <tr>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Index Cond: (geom &amp;&amp; st_expand(mpq_1.geom, &#x27;2624.67&#x27;::double precision))</td>
@@ -645,10 +650,7 @@ WHERE (mpq.assesstot IS NULL or mpq.assesstot &lt; 1000) AND mpq.objectid = mpq_
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: st_dwithin(mpq_1.geom, geom, &#x27;2624.67&#x27;::double precision)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rows Removed by Filter: 763</td>
-        </tr>
-        <tr>
-            <td>Planning Time: 9.750 ms</td>
+            <td>Planning Time: 12.785 ms</td>
         </tr>
         <tr>
             <td>JIT:</td>
@@ -660,10 +662,10 @@ WHERE (mpq.assesstot IS NULL or mpq.assesstot &lt; 1000) AND mpq.objectid = mpq_
             <td>&nbsp;&nbsp;Options: Inlining true, Optimization true, Expressions true, Deforming true</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;Timing: Generation 2.439 ms, Inlining 76.451 ms, Optimization 161.203 ms, Emission 98.738 ms, Total 338.831 ms</td>
+            <td>&nbsp;&nbsp;Timing: Generation 2.607 ms, Inlining 79.913 ms, Optimization 177.966 ms, Emission 106.979 ms, Total 367.466 ms</td>
         </tr>
         <tr>
-            <td>Execution Time: 22638.161 ms</td>
+            <td>Execution Time: 496.453 ms</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -960,16 +962,16 @@ CROSS JOIN LATERAL
     </thead>
     <tbody>
         <tr>
-            <td>Nested Loop  (cost=65238.04..26145283.10 rows=2000 width=52) (actual time=137.902..13882.129 rows=2365 loops=1)</td>
+            <td>Nested Loop  (cost=65238.04..26145283.10 rows=2000 width=52) (actual time=149.548..16762.558 rows=2365 loops=1)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;-&gt;  Seq Scan on nyc_subway_stations sb  (cost=0.00..14.00 rows=400 width=68) (actual time=0.010..0.240 rows=473 loops=1)</td>
+            <td>&nbsp;&nbsp;-&gt;  Seq Scan on nyc_subway_stations sb  (cost=0.00..14.00 rows=400 width=68) (actual time=0.008..0.346 rows=473 loops=1)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;-&gt;  Limit  (cost=65238.04..65238.05 rows=5 width=48) (actual time=29.099..29.099 rows=5 loops=473)</td>
+            <td>&nbsp;&nbsp;-&gt;  Limit  (cost=65238.04..65238.05 rows=5 width=48) (actual time=35.156..35.157 rows=5 loops=473)</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Sort  (cost=65238.04..65363.04 rows=50002 width=48) (actual time=29.097..29.098 rows=5 loops=473)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Sort  (cost=65238.04..65363.04 rows=50002 width=48) (actual time=35.146..35.146 rows=5 loops=473)</td>
         </tr>
         <tr>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sort Key: ((sb.geom &lt;-&gt; restaurants.geom))</td>
@@ -978,10 +980,10 @@ CROSS JOIN LATERAL
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sort Method: top-N heapsort  Memory: 25kB</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on restaurants  (cost=0.00..64407.52 rows=50002 width=48) (actual time=0.105..21.380 rows=50002 loops=473)</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;  Seq Scan on restaurants  (cost=0.00..64407.52 rows=50002 width=48) (actual time=0.145..26.108 rows=50002 loops=473)</td>
         </tr>
         <tr>
-            <td>Planning Time: 0.129 ms</td>
+            <td>Planning Time: 0.095 ms</td>
         </tr>
         <tr>
             <td>JIT:</td>
@@ -993,10 +995,10 @@ CROSS JOIN LATERAL
             <td>&nbsp;&nbsp;Options: Inlining true, Optimization true, Expressions true, Deforming true</td>
         </tr>
         <tr>
-            <td>&nbsp;&nbsp;Timing: Generation 1.137 ms, Inlining 15.487 ms, Optimization 57.519 ms, Emission 35.548 ms, Total 109.692 ms</td>
+            <td>&nbsp;&nbsp;Timing: Generation 0.775 ms, Inlining 15.464 ms, Optimization 64.365 ms, Emission 38.300 ms, Total 118.904 ms</td>
         </tr>
         <tr>
-            <td>Execution Time: 13883.507 ms</td>
+            <td>Execution Time: 16763.713 ms</td>
         </tr>
     </tbody>
 </table></div></div>

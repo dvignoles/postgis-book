@@ -1,0 +1,2302 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>NYC Storms &amp; 311 Flooding Service Requests Part 3: Report &#8212; postgis-book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="NYC Storms &amp; 311 Flooding Service Requests Part 2: Storm Identification &amp; Spatial Queries" href="dv-finalproject-2.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">postgis-book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-01.html">
+   Basic SQL SELECT queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-02.html">
+   Update, Alter, Join, Views
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-03.html">
+   Spatial Data Types
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-04.html">
+   Basic Spatial Data Manipulation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-05.html">
+   Spatial Functions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-06.html">
+   Spatial Queries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-07.html">
+   Update and Proximity
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-lab-08.html">
+   Geometry Operations and Spatial Analysis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-finalproject-01.html">
+   NYC Storms &amp; 311 Flooding Service Requests Part 1: Data Preparation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dv-finalproject-2.html">
+   NYC Storms &amp; 311 Flooding Service Requests Part 2: Storm Identification &amp; Spatial Queries
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   NYC Storms &amp; 311 Flooding Service Requests Part 3: Report
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/dvignoles/postgis-book/main?urlpath=tree/docs/dv-finalproject-3.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/dvignoles/postgis-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/dvignoles/postgis-book/issues/new?title=Issue%20on%20page%20%2Fdv-finalproject-3.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/dv-finalproject-3.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-sources">
+   Data Sources
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#usgs-gage-bronx-river-new-york-botanical-garden">
+     USGS Gage Bronx River New York Botanical Garden
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noaa-tidal-gage-at-the-battery-ny">
+     NOAA Tidal Gage at The Battery, NY
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ncei-precipitation-daily-summaries">
+     NCEI Precipitation Daily Summaries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nyc-311-flooding-complaints">
+     NYC 311 Flooding Complaints
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#storm-catalog">
+   Storm Catalog
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nta-311-aggregation">
+   NTA 311 Aggregation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flood-call-clustering">
+   311 Flood Call Clustering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flooding-susceptibility">
+   Flooding Susceptibility
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>NYC Storms & 311 Flooding Service Requests Part 3: Report</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-sources">
+   Data Sources
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#usgs-gage-bronx-river-new-york-botanical-garden">
+     USGS Gage Bronx River New York Botanical Garden
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noaa-tidal-gage-at-the-battery-ny">
+     NOAA Tidal Gage at The Battery, NY
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ncei-precipitation-daily-summaries">
+     NCEI Precipitation Daily Summaries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nyc-311-flooding-complaints">
+     NYC 311 Flooding Complaints
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#storm-catalog">
+   Storm Catalog
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nta-311-aggregation">
+   NTA 311 Aggregation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flood-call-clustering">
+   311 Flood Call Clustering
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flooding-susceptibility">
+   Flooding Susceptibility
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="nyc-storms-311-flooding-service-requests-part-3-report">
+<h1>NYC Storms &amp; 311 Flooding Service Requests Part 3: Report<a class="headerlink" href="#nyc-storms-311-flooding-service-requests-part-3-report" title="Permalink to this headline">#</a></h1>
+<p><a class="reference external" href="https://dvignoles.github.io/postgis-book/dv-finalproject-01.html">part 1</a></p>
+<p><a class="reference external" href="https://dvignoles.github.io/postgis-book/dv-finalproject-2.html">part 2</a></p>
+<p><strong><a class="reference external" href="https://dvignoles.github.io/postgis-book/dv-finalproject-3.html">part 3</a></strong></p>
+<p>The goal of this project is to:</p>
+<p>(A) Use the local environmental record to identify storms in NYC from 2010-present</p>
+<p>(B) Use flooding service_requests made to 311 to identify storms in NYC from 2010-present</p>
+<p>(C) Use the spatial distribution of flooding complaints made to 311 for each identified storm as proxy for flooding susceptibility due to storms.</p>
+<p>This section is a summary of the work. View parts 1 &amp; 2 to look through the nitty gritty code and queries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rs_to_gdf</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span> <span class="n">geom_col</span><span class="o">=</span><span class="s1">&#39;geom&#39;</span><span class="p">,</span> <span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;sql result set to geodataframe&quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="o">.</span><span class="n">from_wkb</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">geom_col</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">epsg</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">epsg</span> <span class="o">!=</span> <span class="mi">4326</span><span class="p">:</span>
+        <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">4326</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gdf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">engine_str</span> <span class="o">=</span> <span class="s2">&quot;postgresql+psycopg2://docker:docker@0.0.0.0:25432/storms&quot;</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">engine_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> sql
+<span class="o">%</span><span class="k">sql</span> $engine.url
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Connected: docker@storms&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-sources">
+<h2>Data Sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">#</a></h2>
+<p>All data was downloaded for the 2010-present available period.</p>
+<p><a class="reference external" href="https://waterdata.usgs.gov/monitoring-location/01302020/">USGS Gage at Bronx River New York Botanical Garden</a></p>
+<p><a class="reference external" href="https://tidesandcurrents.noaa.gov/stationhome.html?id=8518750">NOAA Tidal Gage at the Battery</a></p>
+<p><a class="reference external" href="https://www.ncdc.noaa.gov/cdo-web/datatools/findstation">NCEI Precipitation as NYC Weather Stations</a></p>
+<p><a class="reference external" href="https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9">NYC Open Data 311 Service Requests (Flooding)</a></p>
+<p>This table is a reference for the environmental data used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT id, source, site_name, ST_X(geom) as lon, ST_Y(geom) as lat FROM sites;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+7 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>source</th>
+            <th>site_name</th>
+            <th>lon</th>
+            <th>lat</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>USGS</td>
+            <td>BRONX RIVER AT NY BOTANICAL GARDEN AT BRONX NY</td>
+            <td>-73.87438889</td>
+            <td>40.86230556</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>NOAA</td>
+            <td>The Battery, NY</td>
+            <td>-74.0142</td>
+            <td>40.7006</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>NCEI</td>
+            <td>STATEN ISLAND 1.4 SE, NY US</td>
+            <td>-74.132695</td>
+            <td>40.567385</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>NCEI</td>
+            <td>LAGUARDIA AIRPORT, NY US</td>
+            <td>-73.88027</td>
+            <td>40.77945</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>NCEI</td>
+            <td>NEWARK LIBERTY INTERNATIONAL AIRPORT, NJ US</td>
+            <td>-74.16927</td>
+            <td>40.68275</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>NCEI</td>
+            <td>NY CITY CENTRAL PARK, NY US</td>
+            <td>-73.96925</td>
+            <td>40.77898</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>NCEI</td>
+            <td>JFK INTERNATIONAL AIRPORT, NY US</td>
+            <td>-73.7639</td>
+            <td>40.63915</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>Each site’s time series was aggregated to a daily summary if needed. I also found the long term monthly statistical maximums for each data product.</p>
+<p>The “<code class="docutils literal notranslate"><span class="pre">iqr25</span></code>” values represent the 25th percent quartile for that value in that specific month.</p>
+<p>The “<code class="docutils literal notranslate"><span class="pre">iqr75</span></code>” values represent the 75th percent quartile for that value in that specific month.</p>
+<p>The interquartile range (IQR) for each month is <code class="docutils literal notranslate"><span class="pre">iqr75</span></code> - <code class="docutils literal notranslate"><span class="pre">iqr25</span></code>. It is common a practice to use 1.5 x IQR as a threshold for outliers in a distribution.</p>
+<p>The “<code class="docutils literal notranslate"><span class="pre">iqrmax</span></code>” values represent this outlier threshold for each month.</p>
+<p>When a daily value exceeds its related “<code class="docutils literal notranslate"><span class="pre">iqrmax</span></code>” we  will consider it a notable <code class="docutils literal notranslate"><span class="pre">event</span></code> indicating a possible storm.</p>
+<section id="usgs-gage-bronx-river-new-york-botanical-garden">
+<h3>USGS Gage Bronx River New York Botanical Garden<a class="headerlink" href="#usgs-gage-bronx-river-new-york-botanical-garden" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT * FROM usgs_bronx_gage_daily LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>date</th>
+            <th>site_id</th>
+            <th>gage_height_ft_max</th>
+            <th>discharge_cfs</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2010-01-01</td>
+            <td>1</td>
+            <td>0.97</td>
+            <td>89.38125000000002</td>
+        </tr>
+        <tr>
+            <td>2010-01-02</td>
+            <td>1</td>
+            <td>0.94</td>
+            <td>77.6625</td>
+        </tr>
+        <tr>
+            <td>2010-01-03</td>
+            <td>1</td>
+            <td>0.88</td>
+            <td>67.86458333333321</td>
+        </tr>
+        <tr>
+            <td>2010-01-04</td>
+            <td>1</td>
+            <td>0.85</td>
+            <td>60.871875000000074</td>
+        </tr>
+        <tr>
+            <td>2010-01-05</td>
+            <td>1</td>
+            <td>0.83</td>
+            <td>58.69687499999987</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">discharge_cfs</span></code>: Mean daily flow rate in cubic ft per second</p>
+<p><code class="docutils literal notranslate"><span class="pre">gage_height_ft_max</span></code>: Daily maximum gage height in feet</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT month, site_id, discharge_cfs_avg, discharge_cfs_iqrmax, gage_height_ft_max_avg, gage_height_ft_max_iqrmax FROM usgs_bronx_gage_mlt;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+12 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>month</th>
+            <th>site_id</th>
+            <th>discharge_cfs_avg</th>
+            <th>discharge_cfs_iqrmax</th>
+            <th>gage_height_ft_max_avg</th>
+            <th>gage_height_ft_max_iqrmax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>73.12444870177197</td>
+            <td>140.43046875</td>
+            <td>0.9028287841191059</td>
+            <td>1.275</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>1</td>
+            <td>81.98060629742612</td>
+            <td>156.8125</td>
+            <td>0.9465667574931881</td>
+            <td>1.43</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>1</td>
+            <td>116.3898950803755</td>
+            <td>205.797395833333</td>
+            <td>1.0612158808933003</td>
+            <td>1.64</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>1</td>
+            <td>105.55898100573297</td>
+            <td>187.729557291667</td>
+            <td>1.0611794871794873</td>
+            <td>1.72</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>1</td>
+            <td>86.57926350512383</td>
+            <td>172.436979166667</td>
+            <td>1.024689826302731</td>
+            <td>1.705</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>1</td>
+            <td>65.52605934270572</td>
+            <td>116.649869791667</td>
+            <td>0.9140000000000004</td>
+            <td>1.47875</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>1</td>
+            <td>56.013134914141624</td>
+            <td>105.01875</td>
+            <td>0.8712219451371576</td>
+            <td>1.58</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>1</td>
+            <td>56.31492750176646</td>
+            <td>87.9703125</td>
+            <td>0.8190570719602984</td>
+            <td>1.33</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>1</td>
+            <td>65.21470956651214</td>
+            <td>102.79296875</td>
+            <td>0.8403589743589742</td>
+            <td>1.32375</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>1</td>
+            <td>57.25864653667988</td>
+            <td>114.597395833333</td>
+            <td>0.8362779156327539</td>
+            <td>1.3575</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>1</td>
+            <td>61.269140322762134</td>
+            <td>124.817317708333</td>
+            <td>0.8609487179487186</td>
+            <td>1.285</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>1</td>
+            <td>80.33195802150934</td>
+            <td>175.843489583333</td>
+            <td>0.951305483028721</td>
+            <td>1.5925</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT date, discharge_cfs, discharge_cfs_gtmax, discharge_cfs_diffmax, gage_height_ft_max_gtmax, gage_height_ft_max_diffmax FROM usgs_bronx_gage_daily_high_events LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>date</th>
+            <th>discharge_cfs</th>
+            <th>discharge_cfs_gtmax</th>
+            <th>discharge_cfs_diffmax</th>
+            <th>gage_height_ft_max_gtmax</th>
+            <th>gage_height_ft_max_diffmax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2010-01-25</td>
+            <td>421.4114583333333</td>
+            <td>1</td>
+            <td>280.9809895833333</td>
+            <td>1</td>
+            <td>1.4450000000000003</td>
+        </tr>
+        <tr>
+            <td>2010-01-26</td>
+            <td>194.55416666666687</td>
+            <td>1</td>
+            <td>54.123697916666885</td>
+            <td>1</td>
+            <td>0.615</td>
+        </tr>
+        <tr>
+            <td>2010-02-23</td>
+            <td>105.715625</td>
+            <td>0</td>
+            <td>-51.096875</td>
+            <td>1</td>
+            <td>0.44999999999999996</td>
+        </tr>
+        <tr>
+            <td>2010-02-24</td>
+            <td>560.375</td>
+            <td>1</td>
+            <td>403.5625</td>
+            <td>1</td>
+            <td>1.24</td>
+        </tr>
+        <tr>
+            <td>2010-02-25</td>
+            <td>314.3125</td>
+            <td>1</td>
+            <td>157.5</td>
+            <td>1</td>
+            <td>0.45999999999999996</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+<section id="noaa-tidal-gage-at-the-battery-ny">
+<h3>NOAA Tidal Gage at The Battery, NY<a class="headerlink" href="#noaa-tidal-gage-at-the-battery-ny" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT * FROM tidal_battery_highs_daily_max LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>site_id</th>
+            <th>date</th>
+            <th>waterlevel_stnd_ft</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2</td>
+            <td>2010-01-01</td>
+            <td>9.869</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2010-01-02</td>
+            <td>9.865</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2010-01-03</td>
+            <td>7.631</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2010-01-04</td>
+            <td>8.944</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2010-01-05</td>
+            <td>8.53</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">waterlevel_stnd_ft</span></code> : gage height above “stnd” datum in feet</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT month, site_id, waterlevel_stnd_ft_avg, waterlevel_stnd_ft_iqrmax FROM tidal_battery_highs_mlt;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+12 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>month</th>
+            <th>site_id</th>
+            <th>waterlevel_stnd_ft_avg</th>
+            <th>waterlevel_stnd_ft_iqrmax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>8.094671373555846</td>
+            <td>10.60025</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2</td>
+            <td>8.03254442877292</td>
+            <td>10.6245</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2</td>
+            <td>8.266475703324808</td>
+            <td>10.7895</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>2</td>
+            <td>8.424626826029217</td>
+            <td>10.394</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>2</td>
+            <td>8.486006426735218</td>
+            <td>10.2345</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2</td>
+            <td>8.605956233421747</td>
+            <td>10.171</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>2</td>
+            <td>8.599311538461539</td>
+            <td>10.258875</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>2</td>
+            <td>8.666285347043699</td>
+            <td>10.382</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>2</td>
+            <td>8.749167330677286</td>
+            <td>10.563</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>2</td>
+            <td>8.740281853281854</td>
+            <td>10.855</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>2</td>
+            <td>8.371181034482765</td>
+            <td>10.4465</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>2</td>
+            <td>8.34051968503937</td>
+            <td>10.68275</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT site_id, date, waterlevel_stnd_ft, waterlevel_stnd_ft_gtmax, waterlevel_stnd_ft_diffmax FROM tidal_battery_highs_events  ORDER BY waterlevel_stnd_ft DESC LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>site_id</th>
+            <th>date</th>
+            <th>waterlevel_stnd_ft</th>
+            <th>waterlevel_stnd_ft_gtmax</th>
+            <th>waterlevel_stnd_ft_diffmax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2</td>
+            <td>2012-10-29</td>
+            <td>17.329</td>
+            <td>1</td>
+            <td>6.474</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2011-08-28</td>
+            <td>12.795</td>
+            <td>1</td>
+            <td>2.4130000000000003</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2010-03-13</td>
+            <td>12.09</td>
+            <td>1</td>
+            <td>1.3004999999999995</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2018-10-27</td>
+            <td>11.66</td>
+            <td>1</td>
+            <td>0.8049999999999997</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>2011-04-16</td>
+            <td>11.385</td>
+            <td>1</td>
+            <td>0.9909999999999997</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+<section id="ncei-precipitation-daily-summaries">
+<h3>NCEI Precipitation Daily Summaries<a class="headerlink" href="#ncei-precipitation-daily-summaries" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT site_id, date::date, prcp FROM ncei_precip_daily LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>site_id</th>
+            <th>date</th>
+            <th>prcp</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>3</td>
+            <td>2022-05-30</td>
+            <td>None</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2010-01-01</td>
+            <td>0.03</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2010-01-02</td>
+            <td>0.02</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2010-01-03</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2010-01-04</td>
+            <td>0.0</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">prcp</span></code>: daily precipitation total in inches</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT month, site_id, prcp_avg, prcp_99 FROM ncei_precip_mlt WHERE month = 1;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>month</th>
+            <th>site_id</th>
+            <th>prcp_avg</th>
+            <th>prcp_99</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>3</td>
+            <td>0.11689349112426037</td>
+            <td>1.7777999999999998</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>4</td>
+            <td>0.09960297766749383</td>
+            <td>1.2180000000000017</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>5</td>
+            <td>0.10267990074441688</td>
+            <td>1.299000000000001</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>6</td>
+            <td>0.11054590570719602</td>
+            <td>1.3292000000000008</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>7</td>
+            <td>0.10367245657568241</td>
+            <td>1.279000000000001</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<p>If any of the stations exceded their indiviudal <code class="docutils literal notranslate"><span class="pre">prcp_99</span></code> threshold, <code class="docutils literal notranslate"><span class="pre">prcp_gt99</span></code> was set to 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT site_id, date::date, prcp_gt99, prcp_diff99 FROM ncei_precip_daily_events ORDER BY prcp_diff99 DESC LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>site_id</th>
+            <th>date</th>
+            <th>prcp_gt99</th>
+            <th>prcp_diff99</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>5</td>
+            <td>2021-09-01</td>
+            <td>1</td>
+            <td>6.9789</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>2011-08-14</td>
+            <td>1</td>
+            <td>5.461599999999999</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2021-09-01</td>
+            <td>1</td>
+            <td>5.1789</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>2021-09-01</td>
+            <td>1</td>
+            <td>5.0769999999999955</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2021-09-02</td>
+            <td>1</td>
+            <td>4.911800000000001</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+<section id="nyc-311-flooding-complaints">
+<h3>NYC 311 Flooding Complaints<a class="headerlink" href="#nyc-311-flooding-complaints" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT unique_key, date, complaint_type, descriptor  FROM nyc_311_flooding LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>unique_key</th>
+            <th>date</th>
+            <th>complaint_type</th>
+            <th>descriptor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>24113310</td>
+            <td>2012-09-29</td>
+            <td>Sewer</td>
+            <td>Catch Basin Clogged/Flooding (Use Comments) (SC)</td>
+        </tr>
+        <tr>
+            <td>24117794</td>
+            <td>2012-09-30</td>
+            <td>Sewer</td>
+            <td>Catch Basin Clogged/Flooding (Use Comments) (SC)</td>
+        </tr>
+        <tr>
+            <td>28854930</td>
+            <td>2014-09-10</td>
+            <td>Sewer</td>
+            <td>Catch Basin Clogged/Flooding (Use Comments) (SC)</td>
+        </tr>
+        <tr>
+            <td>38956885</td>
+            <td>2018-04-16</td>
+            <td>Sewer</td>
+            <td>Street Flooding (SJ)</td>
+        </tr>
+        <tr>
+            <td>45157493</td>
+            <td>2019-12-14</td>
+            <td>Sewer</td>
+            <td>Street Flooding (SJ)</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT COUNT(*) FROM nyc_311_flooding;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>136108</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT DISTINCT descriptor FROM nyc_311_flooding;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+4 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>descriptor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>RAIN GARDEN FLOODING (SRGFLD)</td>
+        </tr>
+        <tr>
+            <td>Street Flooding (SJ)</td>
+        </tr>
+        <tr>
+            <td>Highway Flooding (SH)</td>
+        </tr>
+        <tr>
+            <td>Catch Basin Clogged/Flooding (Use Comments) (SC)</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT month, num_complaints_avg, num_complaints_iqrmax FROM nyc_311_flooding_mlt;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+12 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>month</th>
+            <th>num_complaints_avg</th>
+            <th>num_complaints_iqrmax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>17</td>
+            <td>39.5</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>23</td>
+            <td>40.5</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>24</td>
+            <td>51.5</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>25</td>
+            <td>54.375</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>36</td>
+            <td>79.5</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>36</td>
+            <td>77.5</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>36</td>
+            <td>81</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>39</td>
+            <td>80.75</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>36</td>
+            <td>75.5</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>28</td>
+            <td>58.5</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>23</td>
+            <td>44</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>23</td>
+            <td>50.5</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT date, num_complaints, num_complaints_gtmax, num_complaints_diffmax FROM nyc_311_flooding_events ORDER BY num_complaints_diffmax DESC LIMIT 5;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+5 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>date</th>
+            <th>num_complaints</th>
+            <th>num_complaints_gtmax</th>
+            <th>num_complaints_diffmax</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2021-09-02</td>
+            <td>645</td>
+            <td>1</td>
+            <td>569.5</td>
+        </tr>
+        <tr>
+            <td>2011-08-25</td>
+            <td>623</td>
+            <td>1</td>
+            <td>542.25</td>
+        </tr>
+        <tr>
+            <td>2014-12-09</td>
+            <td>537</td>
+            <td>1</td>
+            <td>486.5</td>
+        </tr>
+        <tr>
+            <td>2021-09-01</td>
+            <td>530</td>
+            <td>1</td>
+            <td>454.5</td>
+        </tr>
+        <tr>
+            <td>2021-10-26</td>
+            <td>472</td>
+            <td>1</td>
+            <td>413.5</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+</section>
+</section>
+<section id="storm-catalog">
+<h2>Storm Catalog<a class="headerlink" href="#storm-catalog" title="Permalink to this headline">#</a></h2>
+<p>Events containing one or more factors exceeding their long term monthly statistical max (iqrmax) were considered probable storm days.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">storm_index</span></code> column is a count of the number of factors (1-5) exceeding their monthly threshold values.</p>
+<p>Series of consecutive “storm days” were aggregated into a single “storm” record.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">storm_index</span></code> in the table below is the maximum <code class="docutils literal notranslate"><span class="pre">storm_index</span></code> of any day within the storm duration.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT storm_id, start_date, end_date, storm_index_max FROM storm_durations ORDER BY storm_index_max DESC LIMIT 15;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+15 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>storm_id</th>
+            <th>start_date</th>
+            <th>end_date</th>
+            <th>storm_index_max</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>269</td>
+            <td>2016-01-10</td>
+            <td>2016-01-11</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>187</td>
+            <td>2018-11-24</td>
+            <td>2018-11-28</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>147</td>
+            <td>2018-04-16</td>
+            <td>2018-04-17</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>226</td>
+            <td>2022-01-17</td>
+            <td>2022-01-17</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>290</td>
+            <td>2017-01-23</td>
+            <td>2017-01-25</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>284</td>
+            <td>2011-05-15</td>
+            <td>2011-05-20</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>139</td>
+            <td>2018-03-02</td>
+            <td>2018-03-04</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>144</td>
+            <td>2010-03-13</td>
+            <td>2010-03-18</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>2011-08-24</td>
+            <td>2011-09-01</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>44</td>
+            <td>2016-10-21</td>
+            <td>2016-10-21</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>2021-09-01</td>
+            <td>2021-09-09</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>2012-09-18</td>
+            <td>2012-09-19</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>2013-02-27</td>
+            <td>2013-02-27</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>2014-11-17</td>
+            <td>2014-11-18</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>36</td>
+            <td>2018-12-21</td>
+            <td>2018-12-22</td>
+            <td>4</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT storm_id, start_date, end_date, storm_index_max
+FROM storm_durations
+WHERE 
+-- Hurricane Irene
+&#39;2011-08-28&#39; BETWEEN start_date AND end_date
+OR
+-- Tropical Storm Sandy
+&#39;2012-10-29&#39; BETWEEN start_date AND end_date
+OR
+-- Hurricane Ida / Heni
+&#39;2021-09-01&#39; BETWEEN start_date AND end_date;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>storm_id</th>
+            <th>start_date</th>
+            <th>end_date</th>
+            <th>storm_index_max</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>6</td>
+            <td>2021-09-01</td>
+            <td>2021-09-09</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>2011-08-24</td>
+            <td>2011-09-01</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>64</td>
+            <td>2012-10-29</td>
+            <td>2012-10-30</td>
+            <td>2</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IRENE</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="n">SANDY</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">IDA</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nta-311-aggregation">
+<h2>NTA 311 Aggregation<a class="headerlink" href="#nta-311-aggregation" title="Permalink to this headline">#</a></h2>
+<p>Neighborhood tabulation areas were used to aggregate 311 flooding calls spatially.</p>
+<p>The table below represents the total number of flooding 311 calls for each NTA in the study period (2010-present).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> SELECT ntacode, ntaname, num_complaints FROM nta_most_flood_complaints LIMIT 10;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+(psycopg2.errors.UndefinedTable) relation &quot;nta_most_flood_complaints&quot; does not exist
+LINE 1: SELECT ntacode, ntaname, num_complaints FROM nta_most_flood_...
+                                                     ^
+
+[SQL: SELECT ntacode, ntaname, num_complaints FROM nta_most_flood_complaints LIMIT 10;]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> _nta_311 &lt;&lt;
+SELECT * FROM nta_most_flood_complaints;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+(psycopg2.errors.UndefinedTable) relation &quot;nta_most_flood_complaints&quot; does not exist
+LINE 1: SELECT * FROM nta_most_flood_complaints;
+                      ^
+
+[SQL: SELECT * FROM nta_most_flood_complaints;]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nta_311</span> <span class="o">=</span> <span class="n">rs_to_gdf</span><span class="p">(</span><span class="n">_nta_311</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">nta_311</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;num_complaints&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;NYC Flooding 311 Complaints 2010-2022&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nta_311</span> <span class="o">=</span> <span class="n">rs_to_gdf</span><span class="p">(</span><span class="n">_nta_311</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">nta_311</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;num_complaints&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;_nta_311&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>The table below represents the number of 311 calls and percentage of total 311 calls per storm for each NTA.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+SELECT storm_id, ntacode, ntaname, storm_nta_total_complaints, storm_complaints_percent 
+FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+10 rows affected.
+</pre></div>
+</div>
+<div class="output text_html"><table>
+    <thead>
+        <tr>
+            <th>storm_id</th>
+            <th>ntacode</th>
+            <th>ntaname</th>
+            <th>storm_nta_total_complaints</th>
+            <th>storm_complaints_percent</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>304</td>
+            <td>BX10</td>
+            <td>Pelham Bay-Country Club-City Island</td>
+            <td>29</td>
+            <td>0.43939393939393939394</td>
+        </tr>
+        <tr>
+            <td>216</td>
+            <td>QN10</td>
+            <td>Breezy Point-Belle Harbor-Rockaway Park-Broad Channel</td>
+            <td>16</td>
+            <td>0.35555555555555555556</td>
+        </tr>
+        <tr>
+            <td>321</td>
+            <td>QN22</td>
+            <td>Flushing</td>
+            <td>37</td>
+            <td>0.35238095238095238095</td>
+        </tr>
+        <tr>
+            <td>63</td>
+            <td>QN12</td>
+            <td>Hammels-Arverne-Edgemere</td>
+            <td>7</td>
+            <td>0.30434782608695652174</td>
+        </tr>
+        <tr>
+            <td>198</td>
+            <td>QN10</td>
+            <td>Breezy Point-Belle Harbor-Rockaway Park-Broad Channel</td>
+            <td>72</td>
+            <td>0.25531914893617021277</td>
+        </tr>
+        <tr>
+            <td>198</td>
+            <td>QN12</td>
+            <td>Hammels-Arverne-Edgemere</td>
+            <td>69</td>
+            <td>0.24468085106382978723</td>
+        </tr>
+        <tr>
+            <td>209</td>
+            <td>SI45</td>
+            <td>New Dorp-Midland Beach</td>
+            <td>38</td>
+            <td>0.22619047619047619048</td>
+        </tr>
+        <tr>
+            <td>94</td>
+            <td>QN62</td>
+            <td>Queensboro Hill</td>
+            <td>19</td>
+            <td>0.22352941176470588235</td>
+        </tr>
+        <tr>
+            <td>55</td>
+            <td>QN12</td>
+            <td>Hammels-Arverne-Edgemere</td>
+            <td>31</td>
+            <td>0.20666666666666666667</td>
+        </tr>
+        <tr>
+            <td>321</td>
+            <td>QN51</td>
+            <td>Murray Hill</td>
+            <td>20</td>
+            <td>0.19047619047619047619</td>
+        </tr>
+    </tbody>
+</table></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_plot_2</span><span class="p">(</span><span class="n">storm_id</span><span class="p">):</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;SELECT sd.start_date, sd.end_date, snc.* FROM storm_nta_complaints snc &quot;</span>
+        <span class="s2">&quot;JOIN storm_durations sd ON snc.storm_id = sd.storm_id &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;WHERE snc.storm_id = </span><span class="si">{</span><span class="n">storm_id</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+        <span class="n">nta</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="s1">&#39;SELECT geom FROM nyc_nta_2010&#39;</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+    
+    <span class="n">start</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;% 311 Flooding Complaints </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;% 311 Flooding Complaints </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">nta</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;storm_complaints_percent&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="n">_plot_2</span><span class="p">(</span><span class="mi">304</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2013-06-28&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_40_1.png" src="_images/dv-finalproject-3_40_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_2</span><span class="p">(</span><span class="mi">216</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2012-11-06&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_41_1.png" src="_images/dv-finalproject-3_41_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_2</span><span class="p">(</span><span class="n">IRENE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2011-08-24&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_42_1.png" src="_images/dv-finalproject-3_42_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_2</span><span class="p">(</span><span class="n">SANDY</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2012-10-29&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_43_1.png" src="_images/dv-finalproject-3_43_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_2</span><span class="p">(</span><span class="n">IDA</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2021-09-01&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_44_1.png" src="_images/dv-finalproject-3_44_1.png" />
+</div>
+</div>
+</section>
+<section id="flood-call-clustering">
+<h2>311 Flood Call Clustering<a class="headerlink" href="#flood-call-clustering" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> _top_storm_clusters &lt;&lt; 
+SELECT scc.storm_id, st.start_date, st.end_date, scc.clst_id, scc.num_complaints, geom
+FROM storm_complaint_clusters scc JOIN storm_durations st on scc.storm_id = st.storm_id
+ORDER BY num_complaints DESC;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+82 rows affected.
+Returning data to local variable _top_storm_clusters
+</pre></div>
+</div>
+</div>
+</div>
+<p>For each storm, 311 flooding calls were clustered together if they were within 1 kilometer of one another and the cluster contained at least 20 points.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">clst_id</span></code> column below identifies a unique cluster for each storm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_plot_3</span><span class="p">(</span><span class="n">storm_id</span><span class="p">):</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;SELECT scc.storm_id, st.start_date, st.end_date, scc.clst_id, scc.num_complaints, geom &quot;</span>
+        <span class="s2">&quot;FROM storm_complaint_clusters scc JOIN storm_durations st on scc.storm_id = st.storm_id &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;WHERE scc.storm_id = </span><span class="si">{</span><span class="n">storm_id</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+        <span class="n">nyc</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="s1">&#39;SELECT ST_Union(geom) as geom FROM nyc_nta_2010&#39;</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+    
+    <span class="n">start</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;311 Flooding Service Request Calls </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;311 Flooding Service Request Calls </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">nyc</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">gdf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s1">&#39;num_complaints&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">top_storm_clusters</span> <span class="o">=</span> <span class="n">rs_to_gdf</span><span class="p">(</span><span class="n">_top_storm_clusters</span><span class="p">)</span>
+<span class="n">top_storm_clusters</span><span class="p">[[</span><span class="s1">&#39;storm_id&#39;</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">,</span> <span class="s1">&#39;clst_id&#39;</span><span class="p">,</span> <span class="s1">&#39;num_complaints&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>storm_id</th>
+      <th>start_date</th>
+      <th>end_date</th>
+      <th>clst_id</th>
+      <th>num_complaints</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17</td>
+      <td>2011-08-24</td>
+      <td>2011-09-01</td>
+      <td>2</td>
+      <td>177</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>17</td>
+      <td>2011-08-24</td>
+      <td>2011-09-01</td>
+      <td>9</td>
+      <td>177</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>17</td>
+      <td>2011-08-24</td>
+      <td>2011-09-01</td>
+      <td>5</td>
+      <td>149</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6</td>
+      <td>2021-09-01</td>
+      <td>2021-09-09</td>
+      <td>11</td>
+      <td>117</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>17</td>
+      <td>2011-08-24</td>
+      <td>2011-09-01</td>
+      <td>1</td>
+      <td>114</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>215</td>
+      <td>2012-05-21</td>
+      <td>2012-05-22</td>
+      <td>1</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>330</td>
+      <td>2011-09-06</td>
+      <td>2011-09-09</td>
+      <td>0</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>71</td>
+      <td>2013-06-10</td>
+      <td>2013-06-14</td>
+      <td>1</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>6</td>
+      <td>2021-09-01</td>
+      <td>2021-09-09</td>
+      <td>15</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>6</td>
+      <td>2021-09-01</td>
+      <td>2021-09-09</td>
+      <td>8</td>
+      <td>13</td>
+    </tr>
+  </tbody>
+</table>
+<p>82 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p>The concave hull of the clustered points was calculated to approximate the areas most flooded by a given storm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_3</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_51_1.png" src="_images/dv-finalproject-3_51_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_3</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_52_1.png" src="_images/dv-finalproject-3_52_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_3</span><span class="p">(</span><span class="n">IRENE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_53_1.png" src="_images/dv-finalproject-3_53_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_3</span><span class="p">(</span><span class="n">SANDY</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2012-10-29&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_54_1.png" src="_images/dv-finalproject-3_54_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_plot_3</span><span class="p">(</span><span class="n">IDA</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01&#39;}&gt;)
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_55_1.png" src="_images/dv-finalproject-3_55_1.png" />
+</div>
+</div>
+</section>
+<section id="flooding-susceptibility">
+<h2>Flooding Susceptibility<a class="headerlink" href="#flooding-susceptibility" title="Permalink to this headline">#</a></h2>
+<p>Using the intersection of all 311 Flooding call clusters, we can identify the areas with high flooding susceptibility. The areas below appeared in greater than 1 cluster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span> _susceptible &lt;&lt;
+SELECT * FROM storm_complaint_clusters_intersection;
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
+1 rows affected.
+Returning data to local variable _susceptible
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">engine</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">nyc</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="s1">&#39;SELECT ST_Union(geom) as geom FROM nyc_nta_2010&#39;</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">nyc</span><span class="o">.</span><span class="n">boundary</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">sus</span> <span class="o">=</span> <span class="n">rs_to_gdf</span><span class="p">(</span><span class="n">_susceptible</span><span class="p">)</span>
+<span class="n">sus</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: &gt;
+</pre></div>
+</div>
+<img alt="_images/dv-finalproject-3_58_1.png" src="_images/dv-finalproject-3_58_1.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="dv-finalproject-2.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">NYC Storms &amp; 311 Flooding Service Requests Part 2: Storm Identification &amp; Spatial Queries</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Daniel Vignoles<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

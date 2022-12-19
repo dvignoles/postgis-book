@@ -1464,7 +1464,9 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-5 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1820,7 +1822,7 @@ Returning data to local variable _nta_311
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
-SELECT storm_id, ntacode, ntaname, storm_nta_total_complaints, storm_complaints_percent 
+SELECT storm_id, ntacode, ntaname, storm_nta_total_complaints, round(storm_complaints_percent,2) as storm_complaints_percent
 FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
 </pre></div>
 </div>
@@ -1846,70 +1848,70 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
             <td>BX10</td>
             <td>Pelham Bay-Country Club-City Island</td>
             <td>29</td>
-            <td>0.43939393939393939394</td>
+            <td>0.44</td>
         </tr>
         <tr>
             <td>216</td>
             <td>QN10</td>
             <td>Breezy Point-Belle Harbor-Rockaway Park-Broad Channel</td>
             <td>16</td>
-            <td>0.35555555555555555556</td>
+            <td>0.36</td>
         </tr>
         <tr>
             <td>321</td>
             <td>QN22</td>
             <td>Flushing</td>
             <td>37</td>
-            <td>0.35238095238095238095</td>
+            <td>0.35</td>
         </tr>
         <tr>
             <td>63</td>
             <td>QN12</td>
             <td>Hammels-Arverne-Edgemere</td>
             <td>7</td>
-            <td>0.30434782608695652174</td>
+            <td>0.30</td>
         </tr>
         <tr>
             <td>198</td>
             <td>QN10</td>
             <td>Breezy Point-Belle Harbor-Rockaway Park-Broad Channel</td>
             <td>72</td>
-            <td>0.25531914893617021277</td>
+            <td>0.26</td>
         </tr>
         <tr>
             <td>198</td>
             <td>QN12</td>
             <td>Hammels-Arverne-Edgemere</td>
             <td>69</td>
-            <td>0.24468085106382978723</td>
+            <td>0.24</td>
         </tr>
         <tr>
             <td>209</td>
             <td>SI45</td>
             <td>New Dorp-Midland Beach</td>
             <td>38</td>
-            <td>0.22619047619047619048</td>
+            <td>0.23</td>
         </tr>
         <tr>
             <td>94</td>
             <td>QN62</td>
             <td>Queensboro Hill</td>
             <td>19</td>
-            <td>0.22352941176470588235</td>
+            <td>0.22</td>
         </tr>
         <tr>
             <td>55</td>
             <td>QN12</td>
             <td>Hammels-Arverne-Edgemere</td>
             <td>31</td>
-            <td>0.20666666666666666667</td>
+            <td>0.21</td>
         </tr>
         <tr>
             <td>321</td>
             <td>QN51</td>
             <td>Murray Hill</td>
             <td>20</td>
-            <td>0.19047619047619047619</td>
+            <td>0.19</td>
         </tr>
     </tbody>
 </table></div></div>
@@ -1927,7 +1929,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
         <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
     
     <span class="n">start</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">end_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
         <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;% 311 Flooding Complaints </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -1974,7 +1976,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2011-08-24&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2011-08-24 - 2011-09-01&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_43_1.png" src="_images/dv-finalproject-3_43_1.png" />
@@ -1988,7 +1990,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2012-10-29&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2012-10-29 - 2012-10-30&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_44_1.png" src="_images/dv-finalproject-3_44_1.png" />
@@ -2002,7 +2004,7 @@ FROM storm_nta_complaints ORDER BY storm_complaints_percent DESC LIMIT 10;
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2021-09-01&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;% 311 Flooding Complaints 2021-09-01 - 2021-09-09&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_45_1.png" src="_images/dv-finalproject-3_45_1.png" />
@@ -2043,7 +2045,7 @@ Returning data to local variable _top_storm_clusters
         <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_postgis</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
     
     <span class="n">start</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">start_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">end_date</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
         <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;311 Flooding Service Request Calls </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -2195,7 +2197,7 @@ Returning data to local variable _top_storm_clusters
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24 - 2011-09-01&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_52_1.png" src="_images/dv-finalproject-3_52_1.png" />
@@ -2209,7 +2211,7 @@ Returning data to local variable _top_storm_clusters
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01 - 2021-09-09&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_53_1.png" src="_images/dv-finalproject-3_53_1.png" />
@@ -2223,7 +2225,7 @@ Returning data to local variable _top_storm_clusters
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2011-08-24 - 2011-09-01&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_54_1.png" src="_images/dv-finalproject-3_54_1.png" />
@@ -2237,7 +2239,7 @@ Returning data to local variable _top_storm_clusters
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2012-10-29&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2012-10-29 - 2012-10-30&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_55_1.png" src="_images/dv-finalproject-3_55_1.png" />
@@ -2251,7 +2253,7 @@ Returning data to local variable _top_storm_clusters
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 640x480 with 2 Axes&gt;,
- &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01&#39;}&gt;)
+ &lt;AxesSubplot: title={&#39;center&#39;: &#39;311 Flooding Service Request Calls 2021-09-01 - 2021-09-09&#39;}&gt;)
 </pre></div>
 </div>
 <img alt="_images/dv-finalproject-3_56_1.png" src="_images/dv-finalproject-3_56_1.png" />

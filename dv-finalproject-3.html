@@ -637,7 +637,7 @@ title="Print to PDF"
 <p>Each site’s time series was aggregated to a daily summary if needed. I also found the long term monthly statistical maximums for each data product.</p>
 <p>The “<code class="docutils literal notranslate"><span class="pre">iqr25</span></code>” values represent the 25th percent quartile for that value in that specific month.</p>
 <p>The “<code class="docutils literal notranslate"><span class="pre">iqr75</span></code>” values represent the 75th percent quartile for that value in that specific month.</p>
-<p>The interquartile range (IQR) for each month is <code class="docutils literal notranslate"><span class="pre">iqr75</span></code> - <code class="docutils literal notranslate"><span class="pre">iqr25</span></code>. It is common a practice to use 1.5 x IQR as a threshold for outliers in a distribution.</p>
+<p>The interquartile range (IQR) for each month is <code class="docutils literal notranslate"><span class="pre">iqr75</span></code> - <code class="docutils literal notranslate"><span class="pre">iqr25</span></code>. It is common a practice to use the 75th quartile + (1.5 x IQR) as a threshold for outliers in a distribution.</p>
 <p>The “<code class="docutils literal notranslate"><span class="pre">iqrmax</span></code>” values represent this outlier threshold for each month.</p>
 <p>When a daily value exceeds its related “<code class="docutils literal notranslate"><span class="pre">iqrmax</span></code>” we  will consider it a notable <code class="docutils literal notranslate"><span class="pre">event</span></code> indicating a possible storm.</p>
 <section id="usgs-gage-bronx-river-new-york-botanical-garden">
@@ -1320,9 +1320,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 rows affected.
+1 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1346,7 +1344,9 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-4 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1379,7 +1379,9 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-12 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>12 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1462,7 +1464,9 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-5 rows affected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
@@ -1649,9 +1653,7 @@ OR
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> * postgresql+psycopg2://docker:***@0.0.0.0:25432/storms
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 rows affected.
+3 rows affected.
 </pre></div>
 </div>
 <div class="output text_html"><table>
